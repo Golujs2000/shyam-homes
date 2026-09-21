@@ -40,8 +40,8 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-navy-950/95 backdrop-blur-md shadow-lg py-3 border-b border-navy-800/80'
-          : 'bg-navy-950/90 md:bg-navy-950/80 backdrop-blur-sm py-4 border-b border-navy-800/40'
+          ? 'bg-white/95 backdrop-blur-md shadow-md py-3 border-b border-lightblue-200'
+          : 'bg-[#eaf5f8]/90 backdrop-blur-sm py-4 border-b border-lightblue-200/70'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,8 +64,8 @@ export default function Header() {
                 className={({ isActive }) =>
                   `text-sm font-medium transition-colors py-1 relative ${
                     isActive
-                      ? 'text-gold-400 font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-gold-400'
-                      : 'text-slate-200 hover:text-gold-400 after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gold-400 hover:after:w-full after:transition-all after:duration-200'
+                      ? 'text-moonstone-600 font-bold after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-moonstone-500'
+                      : 'text-gunmetal-900/80 hover:text-moonstone-600 after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-moonstone-500 hover:after:w-full after:transition-all after:duration-200'
                   }`
                 }
               >
@@ -78,9 +78,9 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-4">
             <a
               href="tel:7858832545"
-              className="flex items-center gap-2 text-white hover:text-gold-400 transition-colors font-semibold text-sm group px-3 py-1.5 rounded-full hover:bg-navy-900"
+              className="flex items-center gap-2 text-gunmetal-900 hover:text-moonstone-600 transition-colors font-semibold text-sm group px-3 py-1.5 rounded-full hover:bg-lightblue-100"
             >
-              <div className="w-8 h-8 rounded-full bg-navy-900 flex items-center justify-center text-gold-400 group-hover:bg-gold-500 group-hover:text-navy-950 transition-colors border border-navy-800">
+              <div className="w-8 h-8 rounded-full bg-lightblue-100 flex items-center justify-center text-moonstone-600 group-hover:bg-moonstone-500 group-hover:text-white transition-colors border border-lightblue-200">
                 <Phone className="w-4 h-4" />
               </div>
               <span>7858832545</span>
@@ -90,9 +90,9 @@ export default function Header() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-navy-950 px-4 py-2 rounded-lg font-semibold text-sm transition-all shadow-gold-glow hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-flex items-center gap-2 bg-saffron-500 hover:bg-saffron-400 text-gunmetal-950 px-4 py-2 rounded-lg font-bold text-sm transition-all shadow-md hover:-translate-y-0.5 active:translate-y-0"
             >
-              <MessageCircle className="w-4 h-4 fill-navy-950 text-gold-500" />
+              <MessageCircle className="w-4 h-4 fill-gunmetal-950 text-saffron-500" />
               <span>WhatsApp Us</span>
             </a>
           </div>
@@ -101,7 +101,7 @@ export default function Header() {
           <div className="flex lg:hidden items-center gap-2">
             <a
               href="tel:7858832545"
-              className="hidden sm:flex items-center gap-1.5 text-xs text-gold-400 font-semibold px-2.5 py-1.5 rounded-lg bg-navy-900 border border-navy-800"
+              className="hidden sm:flex items-center gap-1.5 text-xs text-moonstone-700 font-semibold px-2.5 py-1.5 rounded-lg bg-lightblue-100 border border-lightblue-200"
             >
               <Phone className="w-3.5 h-3.5" />
               <span>7858832545</span>
@@ -111,15 +111,15 @@ export default function Header() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-lg bg-gold-500 text-navy-950 flex items-center justify-center hover:bg-gold-400 transition-colors"
+              className="w-9 h-9 rounded-lg bg-saffron-500 text-gunmetal-950 flex items-center justify-center hover:bg-saffron-400 transition-colors shadow-sm"
               aria-label="WhatsApp Us"
             >
-              <MessageCircle className="w-5 h-5 fill-navy-950 text-gold-500" />
+              <MessageCircle className="w-5 h-5 fill-gunmetal-950 text-saffron-500" />
             </a>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="w-10 h-10 rounded-lg bg-navy-900 text-white flex items-center justify-center hover:bg-navy-800 transition-colors focus:outline-none border border-navy-800"
+              className="w-10 h-10 rounded-lg bg-lightblue-100 text-gunmetal-900 flex items-center justify-center hover:bg-lightblue-200 transition-colors focus:outline-none border border-lightblue-200"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -130,8 +130,8 @@ export default function Header() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-navy-950 border-b border-navy-800 px-5 pt-3 pb-6 space-y-3 animate-in slide-in-from-top duration-200 shadow-2xl">
-          <div className="py-2.5 border-b border-navy-800/80 mb-2 flex items-center justify-between">
+        <div className="lg:hidden bg-white border-b border-lightblue-200 px-5 pt-3 pb-6 space-y-3 animate-in slide-in-from-top duration-200 shadow-2xl">
+          <div className="py-2.5 border-b border-lightblue-200/80 mb-2 flex items-center justify-between">
             <Link to="/" onClick={() => setMobileMenuOpen(false)}>
               <img
                 src="/shyam homes logo.png"
@@ -139,7 +139,7 @@ export default function Header() {
                 className="h-8 w-auto object-contain"
               />
             </Link>
-            <p className="text-xs text-gold-400 uppercase tracking-widest font-semibold">
+            <p className="text-xs text-moonstone-600 uppercase tracking-widest font-semibold">
               Patna Property Advisory
             </p>
           </div>
@@ -152,23 +152,23 @@ export default function Header() {
                 className={({ isActive }) =>
                   `flex items-center justify-between py-2.5 px-3 rounded-md text-base transition-colors ${
                     isActive
-                      ? 'bg-navy-900 text-gold-400 font-bold'
-                      : 'text-slate-200 hover:text-gold-400 hover:bg-navy-900/60 font-medium'
+                      ? 'bg-lightblue-100 text-moonstone-700 font-bold'
+                      : 'text-gunmetal-900 hover:text-moonstone-600 hover:bg-lightblue-50 font-medium'
                   }`
                 }
               >
                 <span>{item.label}</span>
-                <ChevronRight className="w-4 h-4 text-slate-500" />
+                <ChevronRight className="w-4 h-4 text-slate-400" />
               </NavLink>
             ))}
           </div>
 
-          <div className="pt-3 mt-2 border-t border-navy-800 space-y-2.5">
+          <div className="pt-3 mt-2 border-t border-lightblue-200 space-y-2.5">
             <a
               href="tel:7858832545"
-              className="w-full flex items-center justify-center gap-2 py-3 bg-navy-900 text-white font-semibold rounded-lg text-sm hover:bg-navy-800 transition-colors border border-slate-700"
+              className="w-full flex items-center justify-center gap-2 py-3 bg-lightblue-100 text-gunmetal-900 font-semibold rounded-lg text-sm hover:bg-lightblue-200 transition-colors border border-lightblue-200"
             >
-              <Phone className="w-4 h-4 text-gold-400" />
+              <Phone className="w-4 h-4 text-moonstone-600" />
               <span>Call 7858832545</span>
             </a>
 
@@ -176,9 +176,9 @@ export default function Header() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 py-3 bg-gold-500 text-navy-950 font-bold rounded-lg text-sm hover:bg-gold-400 transition-colors"
+              className="w-full flex items-center justify-center gap-2 py-3 bg-saffron-500 text-gunmetal-950 font-bold rounded-lg text-sm hover:bg-saffron-400 transition-colors shadow-sm"
             >
-              <MessageCircle className="w-4 h-4 fill-navy-950 text-gold-500" />
+              <MessageCircle className="w-4 h-4 fill-gunmetal-950 text-saffron-500" />
               <span>WhatsApp Us Now</span>
             </a>
           </div>

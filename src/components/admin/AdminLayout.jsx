@@ -32,9 +32,9 @@ export default function AdminLayout({ children, title, subtitle, actionButton })
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col md:flex-row text-left font-sans">
       {/* Sidebar (Desktop) */}
-      <aside className="hidden md:flex flex-col w-64 bg-navy-950 text-white border-r border-navy-800 shrink-0 select-none">
+      <aside className="hidden md:flex flex-col w-64 bg-[#f0f8fa] text-gunmetal-900 border-r border-lightblue-200 shrink-0 select-none">
         {/* Brand Header */}
-        <div className="p-5 border-b border-navy-800">
+        <div className="p-5 border-b border-lightblue-200 bg-white">
           <Link to="/" className="block group">
             <div className="flex items-center justify-start py-1">
               <img
@@ -44,8 +44,8 @@ export default function AdminLayout({ children, title, subtitle, actionButton })
               />
             </div>
             <div className="flex items-center gap-1.5 mt-2.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold-400" />
-              <span className="text-[10px] text-gold-400 font-bold uppercase tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-moonstone-500" />
+              <span className="text-[10px] text-moonstone-700 font-bold uppercase tracking-wider">
                 Admin Portal
               </span>
             </div>
@@ -53,13 +53,13 @@ export default function AdminLayout({ children, title, subtitle, actionButton })
         </div>
 
         {/* Consultant Profile Pill */}
-        <div className="mx-4 my-4 p-3 rounded-2xl bg-navy-900 border border-navy-800 flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center font-bold text-xs shrink-0">
+        <div className="mx-4 my-4 p-3 rounded-2xl bg-white border border-lightblue-200 flex items-center gap-3 shadow-sm">
+          <div className="w-9 h-9 rounded-xl bg-lightblue-100 text-moonstone-600 flex items-center justify-center font-bold text-xs shrink-0">
             <Shield className="w-4 h-4" />
           </div>
           <div className="overflow-hidden">
-            <h4 className="text-xs font-bold text-white truncate">{settings.consultantName}</h4>
-            <p className="text-[10px] text-slate-400 truncate">{settings.phone}</p>
+            <h4 className="text-xs font-bold text-gunmetal-900 truncate">{settings.consultantName}</h4>
+            <p className="text-[10px] text-slate-500 truncate">{settings.phone}</p>
           </div>
         </div>
 
@@ -75,8 +75,8 @@ export default function AdminLayout({ children, title, subtitle, actionButton })
                 className={({ isActive }) =>
                   `flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                     isActive
-                      ? 'bg-gold-500 text-navy-950 font-bold shadow-md'
-                      : 'text-slate-300 hover:text-white hover:bg-navy-900'
+                      ? 'bg-moonstone-500 text-white font-bold shadow-md'
+                      : 'text-slate-600 hover:text-gunmetal-900 hover:bg-lightblue-100/70'
                   }`
                 }
               >
@@ -95,18 +95,18 @@ export default function AdminLayout({ children, title, subtitle, actionButton })
         </nav>
 
         {/* Bottom Actions */}
-        <div className="p-4 border-t border-navy-800 space-y-2">
+        <div className="p-4 border-t border-lightblue-200 space-y-2 bg-white">
           <Link
             to="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-navy-900 hover:bg-navy-800 text-slate-300 text-xs font-medium transition-colors"
+            className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-[#f0f8fa] hover:bg-lightblue-100 text-gunmetal-900 text-xs font-semibold transition-colors border border-lightblue-200"
           >
             <span className="flex items-center gap-2">
-              <ExternalLink className="w-3.5 h-3.5 text-gold-400" />
+              <ExternalLink className="w-3.5 h-3.5 text-moonstone-600" />
               <span>Live Website</span>
             </span>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
+            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
           </Link>
 
           <button
@@ -190,10 +190,10 @@ export default function AdminLayout({ children, title, subtitle, actionButton })
 
       {/* Mobile Drawer */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 md:hidden bg-navy-950/80 backdrop-blur-sm flex">
-          <div className="w-72 bg-navy-950 text-white flex flex-col justify-between p-6 shadow-2xl animate-in slide-in-from-left duration-200">
+        <div className="fixed inset-0 z-50 md:hidden bg-gunmetal-900/50 backdrop-blur-sm flex">
+          <div className="w-72 bg-[#f0f8fa] text-gunmetal-900 flex flex-col justify-between p-6 shadow-2xl animate-in slide-in-from-left duration-200 border-r border-lightblue-200">
             <div>
-              <div className="flex items-center justify-between pb-4 border-b border-navy-800 mb-6">
+              <div className="flex items-center justify-between pb-4 border-b border-lightblue-200 mb-6 bg-white -m-6 p-6">
                 <Link to="/" onClick={() => setMobileOpen(false)}>
                   <img
                     src="/shyam homes logo.png"
@@ -203,13 +203,13 @@ export default function AdminLayout({ children, title, subtitle, actionButton })
                 </Link>
                 <button
                   onClick={() => setMobileOpen(false)}
-                  className="p-1 rounded-lg text-slate-400 hover:text-white"
+                  className="p-1 rounded-lg text-slate-500 hover:text-gunmetal-900"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <nav className="space-y-1">
+              <nav className="space-y-1 mt-4">
                 {navItems.map((item) => {
                   const Icon = item.icon;
                   return (
@@ -221,8 +221,8 @@ export default function AdminLayout({ children, title, subtitle, actionButton })
                       className={({ isActive }) =>
                         `flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
                           isActive
-                            ? 'bg-gold-500 text-navy-950 font-bold'
-                            : 'text-slate-300 hover:bg-navy-900'
+                            ? 'bg-moonstone-500 text-white font-bold shadow-sm'
+                            : 'text-slate-600 hover:bg-lightblue-100'
                         }`
                       }
                     >

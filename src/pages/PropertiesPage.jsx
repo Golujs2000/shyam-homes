@@ -81,16 +81,15 @@ export default function PropertiesPage() {
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen">
       {/* Top Banner */}
-      <div className="bg-navy-950 text-white py-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-950 opacity-95" />
+      <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/20 text-gold-300 text-xs font-bold uppercase tracking-wider mb-3 border border-gold-500/30">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-moonstone-700 text-xs font-bold uppercase tracking-wider mb-3 border border-lightblue-300 shadow-sm">
             Patna Real Estate Catalog
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
-            Explore Properties in <span className="text-gold-gradient">Patna</span>
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gunmetal-900">
+            Explore Properties in <span className="text-moonstone-600 italic font-normal">Patna</span>
           </h1>
-          <p className="mt-2 text-slate-300 text-base max-w-2xl">
+          <p className="mt-2 text-slate-700 text-base max-w-2xl">
             Browse verified independent houses, high-rise flats, prime residential plots, and commercial properties across Patna.
           </p>
         </div>

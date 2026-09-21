@@ -7,6 +7,19 @@ export default {
   theme: {
     extend: {
       colors: {
+        primary: {
+          50: '#f4fbfe',
+          100: '#e2f4f8',
+          200: '#c3e7f1', // Main light blue from color.md
+          300: '#a3d8e5',
+          400: '#74bdd0',
+          500: '#519cab', // Moonstone complement
+          600: '#3f808e',
+          700: '#2d636f',
+          800: '#20373b', // Gunmetal
+          900: '#16282c',
+          950: '#0f1c1e',
+        },
         gunmetal: {
           950: '#0f1c1e',
           900: '#20373b', // color.md base gunmetal
@@ -16,7 +29,7 @@ export default {
           600: '#54848f',
         },
         navy: {
-          // Aliased to gunmetal palette for seamless theme adaptation across existing classes
+          // Aliased to gunmetal palette for backwards compatibility
           950: '#0f1c1e',
           900: '#20373b',
           850: '#284449',

@@ -47,30 +47,29 @@ export default function BuyPage() {
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen text-left">
       {/* Hero Banner */}
-      <div className="bg-navy-950 text-white py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-950 opacity-95" />
+      <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/20 text-gold-300 text-xs font-bold uppercase tracking-wider mb-4 border border-gold-500/30">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-moonstone-700 text-xs font-bold uppercase tracking-wider mb-4 border border-lightblue-300 shadow-sm">
             Buyer Advisory Desk
           </div>
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
-            Buy Verified Properties in <span className="text-gold-gradient">Patna</span>
+          <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-gunmetal-900 leading-tight">
+            Buy Verified Properties in <span className="text-moonstone-600 italic font-normal">Patna</span>
           </h1>
-          <p className="mt-3 text-slate-300 text-base sm:text-lg max-w-2xl font-light leading-relaxed">
+          <p className="mt-3 text-slate-700 text-base sm:text-lg max-w-2xl font-light leading-relaxed">
             Find independent houses, modern flats, residential plots and commercial spaces with complete legal verification, transparent documentation, and on-ground site assistance.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 pt-6 border-t border-navy-800 max-w-3xl">
-            <div className="flex items-center gap-2.5 text-sm text-slate-300">
-              <ShieldCheck className="w-5 h-5 text-gold-400" />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 pt-6 border-t border-lightblue-200/80 max-w-3xl">
+            <div className="flex items-center gap-2.5 text-sm text-gunmetal-900">
+              <ShieldCheck className="w-5 h-5 text-moonstone-600" />
               <span>100% Verified Land Titles</span>
             </div>
-            <div className="flex items-center gap-2.5 text-sm text-slate-300">
-              <CheckCircle2 className="w-5 h-5 text-gold-400" />
+            <div className="flex items-center gap-2.5 text-sm text-gunmetal-900">
+              <CheckCircle2 className="w-5 h-5 text-moonstone-600" />
               <span>Direct Builder & Owner Deals</span>
             </div>
-            <div className="flex items-center gap-2.5 text-sm text-slate-300">
-              <CheckCircle2 className="w-5 h-5 text-gold-400" />
+            <div className="flex items-center gap-2.5 text-sm text-gunmetal-900">
+              <CheckCircle2 className="w-5 h-5 text-moonstone-600" />
               <span>Bank Loan & Registry Support</span>
             </div>
           </div>

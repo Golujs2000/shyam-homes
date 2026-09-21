@@ -47,23 +47,22 @@ export default function SellPage() {
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen text-left">
       {/* Banner */}
-      <div className="bg-navy-950 text-white py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-950 opacity-95" />
+      <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/20 text-gold-300 text-xs font-bold uppercase tracking-wider mb-4 border border-gold-500/30">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-moonstone-700 text-xs font-bold uppercase tracking-wider mb-4 border border-lightblue-300 shadow-sm">
             Property Sellers Portal
           </div>
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
-            Sell Your Property with <span className="text-gold-gradient">Shyam Homes</span>
+          <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-gunmetal-900 leading-tight">
+            Sell Your Property with <span className="text-moonstone-600 italic font-normal">Shyam Homes</span>
           </h1>
-          <p className="mt-3 text-slate-300 text-base sm:text-lg max-w-2xl font-light leading-relaxed">
+          <p className="mt-3 text-slate-700 text-base sm:text-lg max-w-2xl font-light leading-relaxed">
             Connect directly with verified, pre-qualified buyers across Patna. Fast turnaround, transparent valuation, and end-to-end registration assistance.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8 pt-6 border-t border-navy-800">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8 pt-6 border-t border-lightblue-200/80">
             <a
               href="tel:7858832545"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-navy-950 font-bold text-sm shadow-gold-glow transition-all w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-moonstone-500 hover:bg-moonstone-600 text-white font-bold text-sm shadow-md transition-all w-full sm:w-auto"
             >
               <Phone className="w-4 h-4" />
               <span>Call 7858832545 for Valuation</span>
@@ -72,9 +71,9 @@ export default function SellPage() {
               href="https://wa.me/917858832545?text=Hello%20Shyam%20Homes,%20I%20want%20to%20list%20my%20property%20for%20sale%20in%20Patna."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-semibold text-sm border border-slate-700 transition-colors w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-gunmetal-900 font-semibold text-sm border border-lightblue-300 shadow-sm transition-colors w-full sm:w-auto"
             >
-              <MessageCircle className="w-4 h-4 text-gold-400" />
+              <MessageCircle className="w-4 h-4 text-moonstone-600" />
               <span>WhatsApp Direct</span>
             </a>
           </div>

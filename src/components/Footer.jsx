@@ -8,9 +8,9 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="bg-navy-950 text-white border-t border-navy-800 pt-16 pb-12 text-left">
+    <footer id="contact" className="bg-gradient-to-b from-[#eaf5f8] to-[#d8edf3] text-gunmetal-900 border-t border-lightblue-300 pt-16 pb-12 text-left">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-navy-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-lightblue-200">
           {/* Brand Info (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
             <Link to="/" className="inline-block group py-1">
@@ -21,15 +21,15 @@ export default function Footer() {
               />
             </Link>
 
-            <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
+            <p className="text-slate-600 text-sm leading-relaxed max-w-sm">
               Your trusted on-ground property consultant in Patna. Offering comprehensive services for buying, selling, and leasing residential, commercial, and land assets.
             </p>
 
             <div className="pt-2">
-              <span className="inline-block text-xs font-semibold px-3 py-1.5 rounded-md bg-navy-900 border border-gold-500/30 text-gold-300">
+              <span className="inline-block text-xs font-bold px-3 py-1.5 rounded-md bg-white border border-lightblue-300 text-moonstone-700 shadow-sm">
                 Buy • Sell • Rent
               </span>
-              <p className="text-xs text-slate-400 mt-2">
+              <p className="text-xs text-slate-500 mt-2">
                 Plots • Houses • Flats • Commercial Properties
               </p>
             </div>
@@ -37,42 +37,42 @@ export default function Footer() {
 
           {/* Quick Links (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-gold-400 font-sans">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-gunmetal-900 font-sans">
               Quick Links
             </h4>
-            <ul className="space-y-2 text-sm text-slate-300">
+            <ul className="space-y-2 text-sm text-slate-600">
               <li>
-                <Link to="/" className="hover:text-gold-400 transition-colors">
+                <Link to="/" className="hover:text-moonstone-600 transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/properties" className="hover:text-gold-400 transition-colors">
+                <Link to="/properties" className="hover:text-moonstone-600 transition-colors">
                   Properties
                 </Link>
               </li>
               <li>
-                <Link to="/buy" className="hover:text-gold-400 transition-colors">
+                <Link to="/buy" className="hover:text-moonstone-600 transition-colors">
                   Buy Property
                 </Link>
               </li>
               <li>
-                <Link to="/sell" className="hover:text-gold-400 transition-colors">
+                <Link to="/sell" className="hover:text-moonstone-600 transition-colors">
                   Sell Property
                 </Link>
               </li>
               <li>
-                <Link to="/rent" className="hover:text-gold-400 transition-colors">
+                <Link to="/rent" className="hover:text-moonstone-600 transition-colors">
                   Rent Property
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="hover:text-gold-400 transition-colors">
+                <Link to="/about" className="hover:text-moonstone-600 transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-gold-400 transition-colors">
+                <Link to="/contact" className="hover:text-moonstone-600 transition-colors">
                   Contact
                 </Link>
               </li>
@@ -81,32 +81,32 @@ export default function Footer() {
 
           {/* Property Types (2 cols) */}
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-gold-400 font-sans">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-gunmetal-900 font-sans">
               Property Types
             </h4>
-            <ul className="space-y-2 text-sm text-slate-300">
+            <ul className="space-y-2 text-sm text-slate-600">
               <li>
-                <Link to="/properties?category=Plots" className="hover:text-gold-400 transition-colors">
+                <Link to="/properties?category=Plots" className="hover:text-moonstone-600 transition-colors">
                   Plots
                 </Link>
               </li>
               <li>
-                <Link to="/properties?category=Houses" className="hover:text-gold-400 transition-colors">
+                <Link to="/properties?category=Houses" className="hover:text-moonstone-600 transition-colors">
                   Houses
                 </Link>
               </li>
               <li>
-                <Link to="/properties?category=Flats" className="hover:text-gold-400 transition-colors">
+                <Link to="/properties?category=Flats" className="hover:text-moonstone-600 transition-colors">
                   Flats
                 </Link>
               </li>
               <li>
-                <Link to="/properties?category=Commercial" className="hover:text-gold-400 transition-colors">
+                <Link to="/properties?category=Commercial" className="hover:text-moonstone-600 transition-colors">
                   Commercial
                 </Link>
               </li>
               <li>
-                <Link to="/rent" className="hover:text-gold-400 transition-colors">
+                <Link to="/rent" className="hover:text-moonstone-600 transition-colors">
                   Rental
                 </Link>
               </li>
@@ -115,29 +115,29 @@ export default function Footer() {
 
           {/* Direct Contact (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-gold-400 font-sans">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-gunmetal-900 font-sans">
               Contact Consultant
             </h4>
-            <div className="space-y-3 text-sm text-slate-300">
-              <div className="font-semibold text-white text-base">
+            <div className="space-y-3 text-sm text-slate-600">
+              <div className="font-bold text-gunmetal-900 text-base">
                 Dhananjay Kumar
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500">
                 Real Estate & Property Consultant
               </p>
 
               <div className="pt-1">
                 <a
                   href="tel:7858832545"
-                  className="inline-flex items-center gap-2 text-gold-400 font-bold hover:underline"
+                  className="inline-flex items-center gap-2 text-moonstone-700 font-bold hover:underline"
                 >
-                  <Phone className="w-4 h-4" />
+                  <Phone className="w-4 h-4 text-moonstone-600" />
                   <span>7858832545</span>
                 </a>
               </div>
 
-              <div className="flex items-center gap-2 text-slate-400 text-xs">
-                <MapPin className="w-4 h-4 text-gold-400 shrink-0" />
+              <div className="flex items-center gap-2 text-slate-600 text-xs">
+                <MapPin className="w-4 h-4 text-moonstone-600 shrink-0" />
                 <span>Patna, Bihar</span>
               </div>
 
@@ -146,9 +146,9 @@ export default function Footer() {
                   href="https://wa.me/917858832545?text=Hello%20Shyam%20Homes,%20I%20need%20property%20assistance%20in%20Patna."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-navy-950 px-4 py-2 rounded-lg font-bold text-xs transition-colors"
+                  className="inline-flex items-center gap-2 bg-moonstone-600 hover:bg-moonstone-700 text-white px-4 py-2 rounded-lg font-bold text-xs transition-colors shadow-sm"
                 >
-                  <MessageCircle className="w-4 h-4 fill-navy-950" />
+                  <MessageCircle className="w-4 h-4 fill-white" />
                   <span>Chat on WhatsApp</span>
                 </a>
               </div>
@@ -157,25 +157,25 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar: Copyright & Legal */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 text-center sm:text-left">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 text-center sm:text-left">
           <p>© 2026 Shyam Homes. All Rights Reserved.</p>
 
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-4 gap-y-2">
-            <Link to="/privacy" className="hover:text-gold-400 transition-colors">
+            <Link to="/privacy" className="hover:text-moonstone-600 transition-colors">
               Privacy Policy
             </Link>
-            <span className="text-slate-700 hidden sm:inline">|</span>
-            <Link to="/terms" className="hover:text-gold-400 transition-colors">
+            <span className="text-slate-300 hidden sm:inline">|</span>
+            <Link to="/terms" className="hover:text-moonstone-600 transition-colors">
               Terms & Conditions
             </Link>
-            <span className="text-slate-700 hidden sm:inline">|</span>
-            <Link to="/admin/login" className="text-slate-500 hover:text-gold-400 transition-colors">
+            <span className="text-slate-300 hidden sm:inline">|</span>
+            <Link to="/admin/login" className="text-slate-500 hover:text-moonstone-600 transition-colors">
               Admin Portal
             </Link>
-            <span className="text-slate-700 hidden sm:inline">|</span>
+            <span className="text-slate-300 hidden sm:inline">|</span>
             <button
               onClick={scrollToTop}
-              className="inline-flex items-center gap-1 text-slate-400 hover:text-gold-400 transition-colors"
+              className="inline-flex items-center gap-1 text-slate-500 hover:text-moonstone-600 transition-colors"
             >
               <span>Back to top</span>
               <ArrowUp className="w-3.5 h-3.5" />
