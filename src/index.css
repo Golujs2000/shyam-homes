@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* Custom smooth scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0f1c1e;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #32535a;
+    border-radius: 5px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ffc64f;
+  }
+}
+
+@layer utilities {
+  .text-gold-gradient,
+  .text-saffron-gradient {
+    background: linear-gradient(135deg, #ffe39f 0%, #ffc64f 50%, #c2851a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-moonstone-gradient {
+    background: linear-gradient(135deg, #c3e7f1 0%, #519cab 50%, #2c636f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .bg-gold-gradient,
+  .bg-saffron-gradient {
+    background: linear-gradient(135deg, #ffc64f 0%, #e6a935 100%);
+  }
+
+  .bg-gold-gradient-hover:hover,
+  .bg-saffron-gradient-hover:hover {
+    background: linear-gradient(135deg, #ffd470 0%, #ffc64f 100%);
+  }
+
+  .bg-moonstone-gradient {
+    background: linear-gradient(135deg, #519cab 0%, #3d818f 100%);
+  }
+
+  .bg-navy-gradient,
+  .bg-gunmetal-gradient {
+    background: linear-gradient(180deg, #20373b 0%, #0f1c1e 100%);
+  }
+
+  .gold-border,
+  .saffron-border {
+    border-color: rgba(255, 198, 79, 0.35);
+  }
+
+  .moonstone-border {
+    border-color: rgba(81, 156, 171, 0.35);
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
