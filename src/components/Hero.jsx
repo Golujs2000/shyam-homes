@@ -12,22 +12,22 @@ export default function Hero({ onExploreClick }) {
   };
 
   return (
-    <section id="hero" className="relative min-h-[85vh] lg:min-h-[92vh] pt-28 pb-32 md:pb-36 flex items-center bg-gradient-to-br from-[#ebf7fa] via-[#d7eff5] to-[#c3e7f1]/70 overflow-hidden text-gunmetal-900">
+    <section id="hero" className="relative min-h-[85vh] lg:min-h-[92vh] pt-28 pb-32 md:pb-36 flex items-center bg-gradient-to-br from-[#ebf7fa]/50 via-[#d7eff5]/40 to-[#c3e7f1]/30 overflow-hidden text-gunmetal-900">
       {/* Background Graphic & City/Property Imagery */}
       <div className="absolute inset-0 z-0">
-        {/* Soft luminous light-blue gradient overlay for maximum readability and airy atmosphere */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#ebf7fa] via-[#ebf7fa]/90 to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#ebf7fa] via-transparent to-[#ebf7fa]/50 z-10" />
+        {/* Soft luminous light-blue gradient overlay with increased transparency */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#ebf7fa]/70 via-[#ebf7fa]/35 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#ebf7fa]/40 via-transparent to-[#ebf7fa]/20 z-10" />
 
         {/* High-res modern property visual placed on desktop right */}
         <img
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85"
           alt="Premium Property in Patna - Shyam Homes"
-          className="w-full h-full object-cover object-center lg:object-right filter brightness-95 opacity-80 transform scale-105"
+          className="w-full h-full object-cover object-center lg:object-right filter brightness-95 opacity-90 transform scale-105"
         />
 
         {/* Subtle decorative glow */}
-        <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-lightblue-200/50 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-lightblue-200/40 rounded-full blur-3xl pointer-events-none" />
       </div>
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8 md:py-12">
