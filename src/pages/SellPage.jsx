@@ -62,7 +62,7 @@ export default function SellPage() {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8 pt-6 border-t border-lightblue-200/80">
             <a
               href="tel:7858832545"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-moonstone-500 hover:bg-moonstone-600 text-white font-bold text-sm shadow-md transition-all w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-primary-500 hover:bg-primary-400 text-gunmetal-950 font-bold text-sm shadow-md hover:shadow-primary-glow transition-all w-full sm:w-auto"
             >
               <Phone className="w-4 h-4" />
               <span>Call 7858832545 for Valuation</span>
@@ -73,7 +73,7 @@ export default function SellPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-gunmetal-900 font-semibold text-sm border border-lightblue-300 shadow-sm transition-colors w-full sm:w-auto"
             >
-              <MessageCircle className="w-4 h-4 text-moonstone-600" />
+              <MessageCircle className="w-4 h-4 text-primary-600" />
               <span>WhatsApp Direct</span>
             </a>
           </div>

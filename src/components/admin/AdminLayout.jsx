@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Building2, Users, CalendarCheck, MessageSquare,
-  Settings, ExternalLink, LogOut, Menu, X, Shield, ChevronRight, Bell, RefreshCw
+  Settings, ExternalLink, LogOut, Menu, X, Shield, ChevronRight, Bell, RefreshCw, ClipboardList
 } from 'lucide-react';
 import { useAdminData } from '../../context/AdminDataContext';
 
 export default function AdminLayout({ children, title, subtitle, actionButton }) {
-  const { settings, logout, leads, visits, enquiries, firestoreStatus, syncWithFirestore } = useAdminData();
+  const { settings, logout, leads, visits, enquiries, listingRequests, firestoreStatus, syncWithFirestore } = useAdminData();
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -19,6 +19,7 @@ export default function AdminLayout({ children, title, subtitle, actionButton })
   const pendingVisitsCount = visits.filter((v) => v.status === 'Pending').length;
   const newLeadsCount = leads.filter((l) => l.status === 'New').length;
   const unreadEnquiriesCount = enquiries.filter((e) => e.status === 'Unread').length;
+  const pendingListingRequestsCount = (listingRequests || []).filter((r) => r.status === 'Pending').length;
 
   const navItems = [
     { label: 'Dashboard', path: '/admin', icon: LayoutDashboard, exact: true },
@@ -26,6 +27,7 @@ export default function AdminLayout({ children, title, subtitle, actionButton })
     { label: 'Leads', path: '/admin/leads', icon: Users, badge: newLeadsCount },
     { label: 'Site Visits', path: '/admin/visits', icon: CalendarCheck, badge: pendingVisitsCount },
     { label: 'Enquiries', path: '/admin/enquiries', icon: MessageSquare, badge: unreadEnquiriesCount },
+    { label: 'Listing Requests', path: '/admin/listing-requests', icon: ClipboardList, badge: pendingListingRequestsCount },
     { label: 'Settings', path: '/admin/settings', icon: Settings },
   ];
 

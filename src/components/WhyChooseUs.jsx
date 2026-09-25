@@ -43,7 +43,7 @@ export default function WhyChooseUs() {
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-gunmetal-900 tracking-tight">
             Your Local Property Partner in{' '}
-            <span className="text-moonstone-600 italic font-normal">Patna</span>
+            <span className="text-gunmetal-800 italic font-normal">Patna</span>
           </h2>
           <p className="mt-3 text-base sm:text-lg text-slate-600">
             Dedicated property consultancy built on trust, transparency, and verified real estate transactions.

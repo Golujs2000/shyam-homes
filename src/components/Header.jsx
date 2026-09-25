@@ -34,25 +34,29 @@ export default function Header() {
     { label: 'Contact', path: '/contact' },
   ];
 
+  const listPropertyUrl = '/list-property';
+
   const whatsappUrl = "https://wa.me/917858832545?text=" + encodeURIComponent("Hello Shyam Homes, I am looking for property assistance in Patna.");
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-md py-3 border-b border-lightblue-200'
-          : 'bg-[#eaf5f8]/90 backdrop-blur-sm py-4 border-b border-lightblue-200/70'
+          ? 'bg-primary-500 shadow-lg py-3 border-b border-primary-600'
+          : 'bg-primary-500 py-4 border-b border-primary-600/60'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center group text-left py-0.5">
-            <img
-              src="/shyam homes logo.png"
-              alt="Shyam Homes — Real Estate & Property Consultants Patna"
-              className="h-10 sm:h-11 md:h-12 w-auto object-contain transition-transform group-hover:scale-[1.02]"
-            />
+            <div className="bg-white rounded-xl px-3 py-1.5 shadow-sm border border-primary-300 transition-transform group-hover:scale-[1.02]">
+              <img
+                src="/shyam homes logo.png"
+                alt="Shyam Homes — Real Estate & Property Consultants Patna"
+                className="h-9 sm:h-10 md:h-11 w-auto object-contain"
+              />
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -64,8 +68,8 @@ export default function Header() {
                 className={({ isActive }) =>
                   `text-sm font-medium transition-colors py-1 relative ${
                     isActive
-                      ? 'text-moonstone-600 font-bold after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-moonstone-500'
-                      : 'text-gunmetal-900/80 hover:text-moonstone-600 after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-moonstone-500 hover:after:w-full after:transition-all after:duration-200'
+                      ? 'text-gunmetal-950 font-bold after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-gunmetal-950 after:rounded-full'
+                      : 'text-gunmetal-900 hover:text-gunmetal-950 after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[3px] after:bg-gunmetal-950 hover:after:w-full after:transition-all after:duration-200 after:rounded-full'
                   }`
                 }
               >
@@ -75,12 +79,19 @@ export default function Header() {
           </nav>
 
           {/* Right side Actions (Desktop >= lg) */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-3">
+            <Link
+              to={listPropertyUrl}
+              className="inline-flex items-center gap-2 bg-gunmetal-950 hover:bg-gunmetal-900 text-primary-400 px-4 py-2 rounded-lg font-bold text-sm transition-all shadow-md hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <span>+ List Property</span>
+            </Link>
+
             <a
               href="tel:7858832545"
-              className="flex items-center gap-2 text-gunmetal-900 hover:text-moonstone-600 transition-colors font-semibold text-sm group px-3 py-1.5 rounded-full hover:bg-lightblue-100"
+              className="flex items-center gap-2 text-gunmetal-950 hover:text-gunmetal-900 transition-colors font-semibold text-sm group px-3 py-1.5 rounded-full hover:bg-primary-400/50"
             >
-              <div className="w-8 h-8 rounded-full bg-lightblue-100 flex items-center justify-center text-moonstone-600 group-hover:bg-moonstone-500 group-hover:text-white transition-colors border border-lightblue-200">
+              <div className="w-8 h-8 rounded-full bg-gunmetal-950/10 flex items-center justify-center text-gunmetal-950 group-hover:bg-gunmetal-950 group-hover:text-primary-400 transition-colors border border-gunmetal-950/20">
                 <Phone className="w-4 h-4" />
               </div>
               <span>7858832545</span>
@@ -90,10 +101,10 @@ export default function Header() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-saffron-500 hover:bg-saffron-400 text-gunmetal-950 px-4 py-2 rounded-lg font-bold text-sm transition-all shadow-md hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-flex items-center gap-2 bg-gunmetal-950 hover:bg-gunmetal-900 text-white px-4 py-2 rounded-lg font-bold text-sm transition-all"
             >
-              <MessageCircle className="w-4 h-4 fill-gunmetal-950 text-saffron-500" />
-              <span>WhatsApp Us</span>
+              <MessageCircle className="w-4 h-4 fill-white" />
+              <span>WhatsApp</span>
             </a>
           </div>
 
@@ -101,9 +112,9 @@ export default function Header() {
           <div className="flex lg:hidden items-center gap-2">
             <a
               href="tel:7858832545"
-              className="hidden sm:flex items-center gap-1.5 text-xs text-moonstone-700 font-semibold px-2.5 py-1.5 rounded-lg bg-lightblue-100 border border-lightblue-200"
+              className="hidden sm:flex items-center gap-1.5 text-xs text-gunmetal-950 font-semibold px-2.5 py-1.5 rounded-lg bg-gunmetal-950/10 border border-gunmetal-950/20"
             >
-              <Phone className="w-3.5 h-3.5" />
+              <Phone className="w-3.5 h-3.5 text-gunmetal-950" />
               <span>7858832545</span>
             </a>
 
@@ -111,15 +122,15 @@ export default function Header() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-lg bg-saffron-500 text-gunmetal-950 flex items-center justify-center hover:bg-saffron-400 transition-colors shadow-sm"
+              className="w-9 h-9 rounded-lg bg-gunmetal-950 text-primary-400 flex items-center justify-center hover:bg-gunmetal-900 transition-colors shadow-sm"
               aria-label="WhatsApp Us"
             >
-              <MessageCircle className="w-5 h-5 fill-gunmetal-950 text-saffron-500" />
+              <MessageCircle className="w-5 h-5 fill-primary-400 text-gunmetal-950" />
             </a>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="w-10 h-10 rounded-lg bg-lightblue-100 text-gunmetal-900 flex items-center justify-center hover:bg-lightblue-200 transition-colors focus:outline-none border border-lightblue-200"
+              className="w-10 h-10 rounded-lg bg-gunmetal-950/10 text-gunmetal-950 flex items-center justify-center hover:bg-gunmetal-950/20 transition-colors focus:outline-none border border-gunmetal-950/20"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -130,16 +141,18 @@ export default function Header() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-lightblue-200 px-5 pt-3 pb-6 space-y-3 animate-in slide-in-from-top duration-200 shadow-2xl">
-          <div className="py-2.5 border-b border-lightblue-200/80 mb-2 flex items-center justify-between">
+        <div className="lg:hidden bg-primary-500 border-b border-primary-600 px-5 pt-3 pb-6 space-y-3 animate-in slide-in-from-top duration-200 shadow-2xl">
+          <div className="py-2.5 border-b border-gunmetal-950/20 mb-2 flex items-center justify-between">
             <Link to="/" onClick={() => setMobileMenuOpen(false)}>
-              <img
-                src="/shyam homes logo.png"
-                alt="Shyam Homes"
-                className="h-8 w-auto object-contain"
-              />
+              <div className="bg-white rounded-lg px-2 py-1 inline-block">
+                <img
+                  src="/shyam homes logo.png"
+                  alt="Shyam Homes"
+                  className="h-7 w-auto object-contain"
+                />
+              </div>
             </Link>
-            <p className="text-xs text-moonstone-600 uppercase tracking-widest font-semibold">
+            <p className="text-xs text-gunmetal-950 uppercase tracking-widest font-semibold">
               Patna Property Advisory
             </p>
           </div>
@@ -152,23 +165,30 @@ export default function Header() {
                 className={({ isActive }) =>
                   `flex items-center justify-between py-2.5 px-3 rounded-md text-base transition-colors ${
                     isActive
-                      ? 'bg-lightblue-100 text-moonstone-700 font-bold'
-                      : 'text-gunmetal-900 hover:text-moonstone-600 hover:bg-lightblue-50 font-medium'
+                      ? 'bg-gunmetal-950/15 text-gunmetal-950 font-bold border-l-4 border-gunmetal-950'
+                      : 'text-gunmetal-900 hover:text-gunmetal-950 hover:bg-gunmetal-950/10 font-medium'
                   }`
                 }
               >
                 <span>{item.label}</span>
-                <ChevronRight className="w-4 h-4 text-slate-400" />
+                <ChevronRight className="w-4 h-4 text-gunmetal-800" />
               </NavLink>
             ))}
           </div>
 
-          <div className="pt-3 mt-2 border-t border-lightblue-200 space-y-2.5">
+          <div className="pt-3 mt-2 border-t border-gunmetal-950/20 space-y-2.5">
+            <Link
+              to={listPropertyUrl}
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full flex items-center justify-center gap-2 py-3 bg-gunmetal-950 text-primary-400 font-bold rounded-lg text-sm hover:bg-gunmetal-900 transition-colors shadow-sm"
+            >
+              <span>+ List Your Property</span>
+            </Link>
             <a
               href="tel:7858832545"
-              className="w-full flex items-center justify-center gap-2 py-3 bg-lightblue-100 text-gunmetal-900 font-semibold rounded-lg text-sm hover:bg-lightblue-200 transition-colors border border-lightblue-200"
+              className="w-full flex items-center justify-center gap-2 py-3 bg-primary-400/50 text-gunmetal-950 font-semibold rounded-lg text-sm hover:bg-primary-400/70 transition-colors border border-gunmetal-950/20"
             >
-              <Phone className="w-4 h-4 text-moonstone-600" />
+              <Phone className="w-4 h-4 text-gunmetal-950" />
               <span>Call 7858832545</span>
             </a>
 
@@ -176,9 +196,9 @@ export default function Header() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 py-3 bg-saffron-500 text-gunmetal-950 font-bold rounded-lg text-sm hover:bg-saffron-400 transition-colors shadow-sm"
+              className="w-full flex items-center justify-center gap-2 py-3 bg-gunmetal-900 text-white font-bold rounded-lg text-sm hover:bg-gunmetal-800 transition-colors"
             >
-              <MessageCircle className="w-4 h-4 fill-gunmetal-950 text-saffron-500" />
+              <MessageCircle className="w-4 h-4 fill-white" />
               <span>WhatsApp Us Now</span>
             </a>
           </div>

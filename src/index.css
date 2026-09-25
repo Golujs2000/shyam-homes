@@ -25,6 +25,8 @@
 }
 
 @layer utilities {
+  .text-primary-gradient,
+  .text-yellow-gradient,
   .text-gold-gradient,
   .text-saffron-gradient {
     background: linear-gradient(135deg, #ffe39f 0%, #ffc64f 50%, #c2851a 100%);
@@ -38,11 +40,15 @@
     -webkit-text-fill-color: transparent;
   }
 
+  .bg-primary-gradient,
+  .bg-yellow-gradient,
   .bg-gold-gradient,
   .bg-saffron-gradient {
     background: linear-gradient(135deg, #ffc64f 0%, #e6a935 100%);
   }
 
+  .bg-primary-gradient-hover:hover,
+  .bg-yellow-gradient-hover:hover,
   .bg-gold-gradient-hover:hover,
   .bg-saffron-gradient-hover:hover {
     background: linear-gradient(135deg, #ffd470 0%, #ffc64f 100%);
@@ -57,6 +63,8 @@
     background: linear-gradient(180deg, #20373b 0%, #0f1c1e 100%);
   }
 
+  .primary-border,
+  .yellow-border,
   .gold-border,
   .saffron-border {
     border-color: rgba(255, 198, 79, 0.35);

@@ -6,6 +6,7 @@ import {
   subscribeToVisits,
   subscribeToEnquiries,
   subscribeToSettings,
+  subscribeToListingRequests,
   savePropertyToFirestore,
   deletePropertyFromFirestore,
   saveLeadToFirestore,
@@ -19,7 +20,10 @@ import {
   deleteEnquiryFromFirestore,
   saveSettingsToFirestore,
   seedInitialFirestoreDataIfEmpty,
-  forceUploadAllDataToFirestore
+  forceUploadAllDataToFirestore,
+  saveListingRequestToFirestore,
+  updateListingRequestStatusInFirestore,
+  deleteListingRequestFromFirestore,
 } from '../services/firestoreService';
 
 const AdminDataContext = createContext(null);
@@ -31,6 +35,7 @@ const STORAGE_KEYS = {
   ENQUIRIES: 'shyam_homes_enquiries_v2',
   SETTINGS: 'shyam_homes_settings_v2',
   AUTH: 'shyam_homes_admin_auth_v2',
+  LISTING_REQUESTS: 'shyam_homes_listing_requests_v1',
 };
 
 const defaultSettings = {
@@ -149,6 +154,14 @@ const initialSampleEnquiries = [
 ];
 
 export function AdminDataProvider({ children }) {
+  // Listing Requests State
+  const [listingRequests, setListingRequests] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEYS.LISTING_REQUESTS);
+    if (saved) {
+      try { return JSON.parse(saved); } catch (e) {}
+    }
+    return [];
+  });
   // Properties State
   const [properties, setProperties] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.PROPERTIES);
@@ -220,6 +233,11 @@ export function AdminDataProvider({ children }) {
     error: null,
   });
 
+  // Listing requests localStorage sync
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.LISTING_REQUESTS, JSON.stringify(listingRequests));
+  }, [listingRequests]);
+
   // Firestore Real-time Subscriptions on Mount
   useEffect(() => {
     let unsubProperties = () => {};
@@ -227,6 +245,7 @@ export function AdminDataProvider({ children }) {
     let unsubVisits = () => {};
     let unsubEnquiries = () => {};
     let unsubSettings = () => {};
+    let unsubListingRequests = () => {};
 
     // 1. First attempt to seed if empty
     seedInitialFirestoreDataIfEmpty(
@@ -295,12 +314,21 @@ export function AdminDataProvider({ children }) {
       }
     });
 
+    // 7. Subscribe to Listing Requests
+    unsubListingRequests = subscribeToListingRequests((remoteRequests) => {
+      if (Array.isArray(remoteRequests)) {
+        setListingRequests(remoteRequests);
+        localStorage.setItem(STORAGE_KEYS.LISTING_REQUESTS, JSON.stringify(remoteRequests));
+      }
+    });
+
     return () => {
       unsubProperties();
       unsubLeads();
       unsubVisits();
       unsubEnquiries();
       unsubSettings();
+      unsubListingRequests();
     };
   }, []);
 
@@ -471,6 +499,75 @@ export function AdminDataProvider({ children }) {
     await saveSettingsToFirestore(merged);
   };
 
+  // Listing Request Methods
+  const addListingRequest = async (requestData) => {
+    const newRequest = {
+      ...requestData,
+      id: `lr-${Date.now()}`,
+      status: 'Pending',
+      createdAt: new Date().toISOString(),
+    };
+    setListingRequests((prev) => [newRequest, ...prev]);
+    await saveListingRequestToFirestore(newRequest);
+    return newRequest;
+  };
+
+  const updateListingRequestStatus = async (id, status) => {
+    setListingRequests((prev) =>
+      prev.map((r) => (r.id === id ? { ...r, status } : r))
+    );
+    await updateListingRequestStatusInFirestore(id, status);
+  };
+
+  const approveListingRequest = async (request, overrideData = {}) => {
+    // Build a property from the listing request
+    const newProp = {
+      title: overrideData.title || `${request.propertyType} in ${request.locality}`,
+      shortTitle: overrideData.shortTitle || `${request.propertyType} – ${request.locality}`,
+      type: request.propertyType || 'House',
+      category: request.propertyType === 'Plot' ? 'Plots' : request.propertyType === 'Flat' ? 'Flats' : request.propertyType === 'Commercial' ? 'Commercial' : 'Houses',
+      status: 'INACTIVE',
+      price: request.expectedPrice || 'Price on Request',
+      priceNumeric: 0,
+      priceNote: 'Negotiable',
+      location: `${request.locality}, Patna, Bihar`,
+      localityKey: request.locality,
+      area: request.area || 'Contact for Details',
+      builtUpArea: request.area || '',
+      beds: '',
+      baths: '',
+      balconies: '',
+      floor: '',
+      parking: '',
+      furnishing: 'Unfurnished',
+      facing: '',
+      possession: 'Ready to Move',
+      ownership: 'Freehold',
+      roadWidth: '',
+      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
+      gallery: ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80'],
+      video: '',
+      overview: request.message || 'Property listed by owner through Shyam Homes.',
+      description: `Owner: ${request.name} (${request.phone}). ${request.message || ''}`,
+      locationAdvantage: '',
+      suitableFor: '',
+      amenities: [],
+      nearbyPlaces: [],
+      mapQuery: `${request.locality}, Patna, Bihar`,
+      listedFromRequest: request.id,
+      ...overrideData,
+    };
+    const savedProp = await addProperty(newProp);
+    // Mark listing request as approved
+    await updateListingRequestStatus(request.id, 'Approved');
+    return savedProp;
+  };
+
+  const deleteListingRequest = async (id) => {
+    setListingRequests((prev) => prev.filter((r) => r.id !== id));
+    await deleteListingRequestFromFirestore(id);
+  };
+
   // Manual Trigger to Sync or Seed with Firestore
   const syncWithFirestore = async () => {
     setFirestoreStatus((prev) => ({ ...prev, syncing: true, error: null }));
@@ -537,6 +634,12 @@ export function AdminDataProvider({ children }) {
 
         settings,
         updateSettings,
+
+        listingRequests,
+        addListingRequest,
+        updateListingRequestStatus,
+        approveListingRequest,
+        deleteListingRequest,
 
         isAuthenticated,
         login,

@@ -10,9 +10,9 @@ export default function BuySellRentCTA({ onAction }) {
       cta: "Find Property",
       icon: Home,
       targetHref: "#properties",
-      bgClass: "bg-white border-lightblue-200 shadow-sm text-gunmetal-900",
-      accent: "text-moonstone-600 bg-lightblue-100",
-      btnClass: "bg-lightblue-100 hover:bg-lightblue-200 text-gunmetal-900 font-semibold border border-lightblue-200"
+      bgClass: "bg-white border-slate-200/90 shadow-sm text-gunmetal-900",
+      accent: "text-yellow-800 bg-primary-100",
+      btnClass: "bg-slate-100 hover:bg-primary-50 text-gunmetal-900 font-semibold border border-slate-200 hover:border-primary-300"
     },
     {
       id: "sell",
@@ -21,9 +21,9 @@ export default function BuySellRentCTA({ onAction }) {
       cta: "List Your Property",
       icon: DollarSign,
       targetHref: "#sell-property",
-      bgClass: "bg-gradient-to-br from-[#c3e7f1] via-[#b6e4ef] to-[#9ad6e5] text-gunmetal-900 border-2 border-moonstone-400 shadow-xl relative overflow-hidden",
-      accent: "text-moonstone-800 bg-white/80",
-      btnClass: "bg-moonstone-600 hover:bg-moonstone-700 text-white font-bold shadow-md",
+      bgClass: "bg-primary-500 text-gunmetal-950 border-2 border-primary-600 shadow-xl relative overflow-hidden",
+      accent: "text-gunmetal-950 bg-white/80 shadow-sm",
+      btnClass: "bg-gunmetal-950 hover:bg-gunmetal-900 text-primary-400 font-bold shadow-md",
       featured: true
     },
     {
@@ -33,9 +33,9 @@ export default function BuySellRentCTA({ onAction }) {
       cta: "Find Rental",
       icon: Key,
       targetHref: "#properties",
-      bgClass: "bg-white border-lightblue-200 shadow-sm text-gunmetal-900",
-      accent: "text-moonstone-600 bg-lightblue-100",
-      btnClass: "bg-lightblue-100 hover:bg-lightblue-200 text-gunmetal-900 font-semibold border border-lightblue-200"
+      bgClass: "bg-white border-slate-200/90 shadow-sm text-gunmetal-900",
+      accent: "text-yellow-800 bg-primary-100",
+      btnClass: "bg-slate-100 hover:bg-primary-50 text-gunmetal-900 font-semibold border border-slate-200 hover:border-primary-300"
     }
   ];
 
@@ -66,7 +66,7 @@ export default function BuySellRentCTA({ onAction }) {
                       <IconComponent className="w-7 h-7" />
                     </div>
                     {item.featured && (
-                      <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 bg-white/90 text-moonstone-800 border border-moonstone-300 rounded-full shadow-sm">
+                      <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 bg-gunmetal-950/90 text-primary-400 border border-gunmetal-950/20 rounded-full shadow-sm">
                         High Demand
                       </span>
                     )}
@@ -78,7 +78,7 @@ export default function BuySellRentCTA({ onAction }) {
                   </h3>
 
                   {/* Description */}
-                  <p className={`text-base leading-relaxed mb-8 ${item.featured ? 'text-gunmetal-800 font-medium' : 'text-slate-600'}`}>
+                  <p className={`text-base leading-relaxed mb-8 ${item.featured ? 'text-gunmetal-900 font-medium' : 'text-slate-600'}`}>
                     {item.description}
                   </p>
                 </div>

@@ -17,6 +17,7 @@ import ContactPage from './pages/ContactPage';
 import PropertyDetailsPage from './pages/PropertyDetailsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
+import ListPropertyPage from './pages/ListPropertyPage';
 
 // Admin Pages & Protected Route
 import ProtectedRoute from './components/admin/ProtectedRoute';
@@ -27,6 +28,7 @@ import AdminLeads from './pages/admin/AdminLeads';
 import AdminVisits from './pages/admin/AdminVisits';
 import AdminEnquiries from './pages/admin/AdminEnquiries';
 import AdminSettings from './pages/admin/AdminSettings';
+import AdminListingRequests from './pages/admin/AdminListingRequests';
 
 // Public Website Layout Wrapper
 function PublicLayout() {
@@ -100,6 +102,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/admin/listing-requests"
+            element={
+              <ProtectedRoute>
+                <AdminListingRequests />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Public Website Routes */}
           <Route element={<PublicLayout />}>
@@ -108,6 +118,7 @@ function App() {
             <Route path="/buy" element={<BuyPage />} />
             <Route path="/sell" element={<SellPage />} />
             <Route path="/rent" element={<RentPage />} />
+            <Route path="/list-property" element={<ListPropertyPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/property/:id" element={<PropertyDetailsPage />} />

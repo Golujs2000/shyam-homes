@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,6 +21,9 @@ const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore
 const db = getFirestore(app);
 
+// Initialize Firebase Storage
+const storage = getStorage(app);
+
 // Initialize Analytics conditionally where supported
 let analytics = null;
 if (typeof window !== "undefined") {
@@ -33,5 +37,5 @@ if (typeof window !== "undefined") {
   });
 }
 
-export { app, db, analytics, firebaseConfig };
+export { app, db, storage, analytics, firebaseConfig };
 export default app;

@@ -18,7 +18,7 @@ export default function FinalCTA() {
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Heading */}
         <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gunmetal-900 leading-tight">
-          Looking for Property in <span className="text-moonstone-700 italic">Patna?</span>
+          Looking for Property in <span className="text-gunmetal-800 italic font-semibold">Patna?</span>
         </h2>
 
         {/* Subheading */}
@@ -30,9 +30,9 @@ export default function FinalCTA() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
           <a
             href="tel:7858832545"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white hover:bg-slate-50 text-gunmetal-900 font-bold px-8 py-4 rounded-xl text-base transition-all shadow-md hover:-translate-y-0.5 border border-lightblue-300"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white hover:bg-slate-50 text-gunmetal-900 font-bold px-8 py-4 rounded-xl text-base transition-all shadow-md hover:-translate-y-0.5 border border-slate-200 hover:border-primary-300"
           >
-            <Phone className="w-5 h-5 text-moonstone-600" />
+            <Phone className="w-5 h-5 text-gunmetal-700" />
             <span>Call 7858832545</span>
           </a>
 
@@ -40,9 +40,9 @@ export default function FinalCTA() {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-moonstone-600 hover:bg-moonstone-700 text-white font-bold px-8 py-4 rounded-xl text-base transition-all shadow-md hover:-translate-y-0.5"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gunmetal-900 hover:bg-gunmetal-800 text-white font-bold px-8 py-4 rounded-xl text-base transition-all shadow-md hover:-translate-y-0.5"
           >
-            <MessageCircle className="w-5 h-5 fill-white text-moonstone-600" />
+            <MessageCircle className="w-5 h-5 fill-white" />
             <span>WhatsApp Us</span>
           </a>
         </div>
@@ -52,7 +52,7 @@ export default function FinalCTA() {
           <div className="font-serif text-lg font-bold text-gunmetal-900 tracking-wide">
             Dhananjay Kumar
           </div>
-          <div className="text-xs text-moonstone-700 uppercase tracking-widest font-bold mt-1">
+          <div className="text-xs text-gunmetal-700 uppercase tracking-widest font-bold mt-1">
             Real Estate & Property Consultant
           </div>
           <div className="text-xs text-slate-600 mt-1">

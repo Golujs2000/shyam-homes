@@ -57,8 +57,13 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/sell" className="hover:text-moonstone-600 transition-colors">
+                <Link to="/sell" className="hover:text-primary-600 transition-colors">
                   Sell Property
+                </Link>
+              </li>
+              <li>
+                <Link to="/list-property" className="hover:text-primary-700 font-semibold transition-colors text-gunmetal-800">
+                  List Your Property ↗
                 </Link>
               </li>
               <li>
@@ -146,7 +151,7 @@ export default function Footer() {
                   href="https://wa.me/917858832545?text=Hello%20Shyam%20Homes,%20I%20need%20property%20assistance%20in%20Patna."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-moonstone-600 hover:bg-moonstone-700 text-white px-4 py-2 rounded-lg font-bold text-xs transition-colors shadow-sm"
+                  className="inline-flex items-center gap-2 bg-gunmetal-900 hover:bg-gunmetal-800 text-white px-4 py-2 rounded-lg font-bold text-xs transition-colors shadow-sm"
                 >
                   <MessageCircle className="w-4 h-4 fill-white" />
                   <span>Chat on WhatsApp</span>

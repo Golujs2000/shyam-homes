@@ -17,7 +17,8 @@ export const COLLECTIONS = {
   LEADS: 'leads',
   VISITS: 'visits',
   ENQUIRIES: 'enquiries',
-  SETTINGS: 'settings'
+  SETTINGS: 'settings',
+  LISTING_REQUESTS: 'listing_requests',
 };
 
 /**
@@ -474,3 +475,78 @@ export async function forceUploadAllDataToFirestore(properties, settings, leads 
   }
 }
 
+/**
+ * Subscribe to real-time Listing Requests from Firestore
+ */
+export function subscribeToListingRequests(onSuccess, onError) {
+  try {
+    const q = query(collection(db, COLLECTIONS.LISTING_REQUESTS));
+    return onSnapshot(
+      q,
+      (snapshot) => {
+        const items = [];
+        snapshot.forEach((docSnap) => {
+          items.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+        onSuccess(items);
+      },
+      (err) => {
+        console.warn('Firestore listing_requests snapshot error:', err);
+        if (onError) onError(err);
+      }
+    );
+  } catch (err) {
+    if (onError) onError(err);
+    return () => {};
+  }
+}
+
+/**
+ * Save a new Listing Request to Firestore
+ */
+export async function saveListingRequestToFirestore(request) {
+  try {
+    const id = String(request.id || `lr-${Date.now()}`);
+    const docRef = doc(db, COLLECTIONS.LISTING_REQUESTS, id);
+    const dataToSave = {
+      ...request,
+      id,
+      status: request.status || 'Pending',
+      createdAt: request.createdAt || new Date().toISOString(),
+    };
+    await setDoc(docRef, dataToSave, { merge: true });
+    return { success: true, id };
+  } catch (err) {
+    console.error('Error saving listing request to Firestore:', err);
+    return { success: false, error: err };
+  }
+}
+
+/**
+ * Update Listing Request Status in Firestore
+ */
+export async function updateListingRequestStatusInFirestore(id, status) {
+  try {
+    const docRef = doc(db, COLLECTIONS.LISTING_REQUESTS, String(id));
+    await updateDoc(docRef, { status, updatedAt: new Date().toISOString() });
+    return { success: true };
+  } catch (err) {
+    console.error('Error updating listing request status in Firestore:', err);
+    return { success: false, error: err };
+  }
+}
+
+/**
+ * Delete a Listing Request from Firestore
+ */
+export async function deleteListingRequestFromFirestore(id) {
+  try {
+    const docRef = doc(db, COLLECTIONS.LISTING_REQUESTS, String(id));
+    await deleteDoc(docRef);
+    return { success: true };
+  } catch (err) {
+    console.error('Error deleting listing request from Firestore:', err);
+    return { success: false, error: err };
+  }
+}

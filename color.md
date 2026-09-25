@@ -1,4 +1,4 @@
-light blue #c3e7f1
-moonstone #519cab
-saffron #ffc64f
+primary yellow / saffron #ffc64f
 gunmetal #20373b
+moonstone #519cab
+light blue #c3e7f1
