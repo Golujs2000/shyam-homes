@@ -27,5 +27,14 @@ service cloud.firestore {
       allow read: if true;
       allow write: if true;
     }
+
+    // Listing Requests: Public can submit requests; Admin can read & manage
+    match /listing_requests/{requestId} {
+      allow read, write: if true;
+    }
+
+    match /listing-requests/{requestId} {
+      allow read, write: if true;
+    }
   }
 }

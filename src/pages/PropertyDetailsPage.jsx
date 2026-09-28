@@ -6,6 +6,8 @@ import {
   Clock, Shield, Send, ArrowRight, Check, Sparkles, X, ChevronLeft, Video
 } from 'lucide-react';
 import { useAdminData } from '../context/AdminDataContext';
+import SEO from '../components/SEO';
+import { getPropertySchema, getBreadcrumbSchema } from '../utils/seoSchemas';
 
 export default function PropertyDetailsPage() {
   const { id } = useParams();
@@ -117,8 +119,29 @@ export default function PropertyDetailsPage() {
 
   const directWhatsAppUrl = `https://wa.me/91${settings.whatsapp || '7858832545'}?text=${encodeURIComponent(`Hello Shyam Homes, I am interested in ${property.title} (${property.propertyId}) priced at ${property.price}. Please provide full details.`)}`;
 
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Properties', url: '/properties' },
+    { name: property.category || 'Listings', url: `/properties?category=${encodeURIComponent(property.category || '')}` },
+    { name: property.title, url: `/property/${property.id}` }
+  ];
+
+  const structuredData = [
+    getPropertySchema(property),
+    getBreadcrumbSchema(breadcrumbs)
+  ].filter(Boolean);
+
   return (
     <div className="pt-24 pb-24 bg-surface-light min-h-screen text-left">
+      <SEO
+        title={`${property.title} in ${property.location} - ${property.price}`}
+        description={property.overview || property.description || `Explore ${property.title} in ${property.location} with Shyam Homes. Price: ${property.price}. Contact Dhananjay Kumar.`}
+        keywords={`${property.title}, ${property.localityKey || property.location}, Real Estate Patna, Property in ${property.localityKey || 'Patna'}`}
+        canonical={`/property/${property.id}`}
+        ogImage={property.image || (property.gallery && property.gallery[0])}
+        schema={structuredData}
+      />
+
       {/* 2. Breadcrumb Navigation */}
       <div className="bg-white border-b border-slate-200/80 py-3.5 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex items-center flex-wrap gap-2 text-xs sm:text-sm text-slate-500">

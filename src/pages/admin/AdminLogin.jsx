@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Building2, Lock, User, ArrowRight, ShieldCheck, Check } from 'lucide-react';
 import { useAdminData } from '../../context/AdminDataContext';
+import SEO from '../../components/SEO';
 
 export default function AdminLogin() {
   const { login } = useAdminData();
@@ -28,6 +29,7 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen bg-navy-950 flex items-center justify-center p-4 sm:p-6 relative overflow-hidden">
+      <SEO title="Admin Login — Private Portal" noIndex={true} />
       {/* Glow graphics */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />

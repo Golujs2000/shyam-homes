@@ -4,6 +4,7 @@ import { Search, MapPin, Bed, Bath, Maximize2, MessageCircle, Filter, RotateCcw,
 import { useAdminData } from '../context/AdminDataContext';
 import { localities, propertyTypes } from '../data/localities';
 import PropertyModal from '../components/PropertyModal';
+import SEO from '../components/SEO';
 
 export default function PropertiesPage() {
   const { properties } = useAdminData();
@@ -78,8 +79,25 @@ export default function PropertiesPage() {
     return `https://wa.me/917858832545?text=${encodeURIComponent(text)}`;
   };
 
+  const seoTitle = localityParam && localityParam !== 'ALL'
+    ? `Properties in ${localityParam}, Patna`
+    : categoryParam
+    ? `${categoryParam} for Sale in Patna`
+    : `Properties for Sale & Rent in Patna`;
+
+  const seoDescription = localityParam && localityParam !== 'ALL'
+    ? `Discover verified plots, houses, and flats for sale in ${localityParam}, Patna. Connect directly with Shyam Homes consultant Dhananjay Kumar.`
+    : `Browse verified houses, modern apartments, commercial spaces, and residential plots across prime localities in Patna with Shyam Homes.`;
+
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen">
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        keywords="Properties Patna, Real Estate Patna, Flats Kankarbagh, Plots Bihta, Land Danapur, Rent Patliputra"
+        canonical={`/properties${localityParam ? `?locality=${localityParam}` : categoryParam ? `?category=${categoryParam}` : ''}`}
+      />
+
       {/* Top Banner */}
       <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto text-left">

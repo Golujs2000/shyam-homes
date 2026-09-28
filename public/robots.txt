@@ -1,0 +1,16 @@
+# Robots.txt for Shyam Homes Patna
+User-agent: *
+Allow: /
+
+# Disallow indexing of private admin and authentication routes
+Disallow: /admin
+Disallow: /admin/
+Disallow: /admin/*
+Disallow: /admin/login
+
+# Disallow query parameter duplicates where appropriate
+Disallow: /*?*sort=*
+Disallow: /*?*filter=*
+
+# Sitemap location
+Sitemap: https://shyamhomespatna.com/sitemap.xml

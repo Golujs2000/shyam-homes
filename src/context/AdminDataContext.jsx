@@ -520,40 +520,55 @@ export function AdminDataProvider({ children }) {
   };
 
   const approveListingRequest = async (request, overrideData = {}) => {
-    // Build a property from the listing request
+    // Build a property from the listing request and modal edits
+    const sellerImages = (request.imageUrls && request.imageUrls.length > 0)
+      ? request.imageUrls
+      : (request.mediaUrls && request.mediaUrls.length > 0)
+        ? request.mediaUrls
+        : [];
+    const defaultCover = sellerImages[0] || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80';
+    const defaultGallery = sellerImages.length > 0 ? sellerImages : [defaultCover];
+    const defaultVideo = (request.videoUrls && request.videoUrls[0]) || request.video || '';
+
+    const isRent = request.purpose === 'Rent' || request.purpose === 'Rent / Lease';
+    const defaultCategory = isRent
+      ? 'Rental Properties'
+      : (request.propertyType === 'Plot' || request.propertyType === 'Land' ? 'Plots' : request.propertyType === 'Flat' ? 'Flats' : request.propertyType === 'Commercial' ? 'Commercial' : 'Houses');
+
     const newProp = {
-      title: overrideData.title || `${request.propertyType} in ${request.locality}`,
-      shortTitle: overrideData.shortTitle || `${request.propertyType} – ${request.locality}`,
-      type: request.propertyType || 'House',
-      category: request.propertyType === 'Plot' ? 'Plots' : request.propertyType === 'Flat' ? 'Flats' : request.propertyType === 'Commercial' ? 'Commercial' : 'Houses',
-      status: 'INACTIVE',
-      price: request.expectedPrice || 'Price on Request',
-      priceNumeric: 0,
-      priceNote: 'Negotiable',
-      location: `${request.locality}, Patna, Bihar`,
-      localityKey: request.locality,
-      area: request.area || 'Contact for Details',
-      builtUpArea: request.area || '',
-      beds: '',
-      baths: '',
-      balconies: '',
-      floor: '',
-      parking: '',
-      furnishing: 'Unfurnished',
-      facing: '',
-      possession: 'Ready to Move',
-      ownership: 'Freehold',
-      roadWidth: '',
-      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
-      gallery: ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80'],
-      video: '',
-      overview: request.message || 'Property listed by owner through Shyam Homes.',
-      description: `Owner: ${request.name} (${request.phone}). ${request.message || ''}`,
-      locationAdvantage: '',
-      suitableFor: '',
-      amenities: [],
-      nearbyPlaces: [],
-      mapQuery: `${request.locality}, Patna, Bihar`,
+      title: overrideData.title || `${request.bhk ? `${request.bhk} ` : ''}${request.propertyType} in ${request.locality}`,
+      shortTitle: overrideData.shortTitle || `${request.bhk ? `${request.bhk} ` : ''}${request.propertyType} – ${request.locality}`,
+      type: overrideData.type || (request.propertyType === 'Land' ? 'Plot' : (request.propertyType || 'House')),
+      category: overrideData.category || defaultCategory,
+      status: overrideData.status || (isRent ? 'FOR RENT' : 'FOR SALE'),
+      price: overrideData.price || request.expectedPrice || 'Price on Request',
+      priceNumeric: overrideData.priceNumeric || 0,
+      priceNote: overrideData.priceNote || request.priceNote || 'Negotiable',
+      location: overrideData.location || request.location || `${request.landmark ? `${request.landmark}, ` : ''}${request.locality}, Patna, Bihar`,
+      localityKey: overrideData.localityKey || request.locality,
+      area: overrideData.area || request.area || 'Contact for Details',
+      builtUpArea: overrideData.builtUpArea || request.builtUpArea || request.area || '',
+      plotArea: overrideData.plotArea || request.plotArea || '',
+      beds: overrideData.beds !== undefined && overrideData.beds !== null ? overrideData.beds : (request.beds || (request.bhk ? parseInt(request.bhk, 10) : '')),
+      baths: overrideData.baths !== undefined && overrideData.baths !== null ? overrideData.baths : (request.baths || ''),
+      balconies: overrideData.balconies !== undefined && overrideData.balconies !== null ? overrideData.balconies : (request.balconies || ''),
+      floor: overrideData.floor || request.floor || '',
+      parking: overrideData.parking || request.parking || '',
+      furnishing: overrideData.furnishing || request.furnishing || 'Unfurnished',
+      facing: overrideData.facing || request.facing || '',
+      possession: overrideData.possession || request.possession || 'Ready to Move',
+      ownership: overrideData.ownership || request.ownership || 'Freehold',
+      roadWidth: overrideData.roadWidth || request.roadWidth || '',
+      image: overrideData.image || defaultCover,
+      gallery: (overrideData.gallery && overrideData.gallery.length > 0) ? overrideData.gallery : defaultGallery,
+      video: overrideData.video || defaultVideo,
+      overview: overrideData.overview || request.message || 'Property listed by owner through Shyam Homes.',
+      description: overrideData.description || (request.message ? `${request.message}\n\nOwner: ${request.name} (${request.phone}${request.email ? `, ${request.email}` : ''})${request.userRole ? ` [${request.userRole}]` : ''}` : `Owner: ${request.name} (${request.phone}).`),
+      locationAdvantage: overrideData.locationAdvantage || (request.landmark ? `Located near ${request.landmark}, ${request.locality}.` : ''),
+      suitableFor: overrideData.suitableFor || '',
+      amenities: overrideData.amenities || request.amenities || [],
+      nearbyPlaces: overrideData.nearbyPlaces || request.nearbyPlaces || [],
+      mapQuery: overrideData.mapQuery || `${request.locality}, Patna, Bihar`,
       listedFromRequest: request.id,
       ...overrideData,
     };

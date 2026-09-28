@@ -22,6 +22,28 @@ export const COLLECTIONS = {
 };
 
 /**
+ * Remove undefined values to prevent Firestore unsupported field value errors
+ */
+export function sanitizeForFirestore(obj) {
+  if (obj === null || obj === undefined) return null;
+  if (typeof obj !== 'object') return obj;
+  if (Array.isArray(obj)) {
+    return obj.map(sanitizeForFirestore).filter((item) => item !== undefined);
+  }
+  const clean = {};
+  for (const [key, value] of Object.entries(obj)) {
+    if (value !== undefined) {
+      if (value !== null && typeof value === 'object') {
+        clean[key] = sanitizeForFirestore(value);
+      } else {
+        clean[key] = value;
+      }
+    }
+  }
+  return clean;
+}
+
+/**
  * Subscribe to real-time properties from Firestore
  */
 export function subscribeToProperties(onSuccess, onError) {
@@ -166,11 +188,11 @@ export async function savePropertyToFirestore(property) {
   try {
     const id = String(property.id || `prop-${Date.now()}`);
     const docRef = doc(db, COLLECTIONS.PROPERTIES, id);
-    const dataToSave = {
+    const dataToSave = sanitizeForFirestore({
       ...property,
       id,
       updatedAt: new Date().toISOString()
-    };
+    });
     await setDoc(docRef, dataToSave, { merge: true });
     return { success: true, id };
   } catch (err) {
@@ -509,12 +531,12 @@ export async function saveListingRequestToFirestore(request) {
   try {
     const id = String(request.id || `lr-${Date.now()}`);
     const docRef = doc(db, COLLECTIONS.LISTING_REQUESTS, id);
-    const dataToSave = {
+    const dataToSave = sanitizeForFirestore({
       ...request,
       id,
       status: request.status || 'Pending',
       createdAt: request.createdAt || new Date().toISOString(),
-    };
+    });
     await setDoc(docRef, dataToSave, { merge: true });
     return { success: true, id };
   } catch (err) {

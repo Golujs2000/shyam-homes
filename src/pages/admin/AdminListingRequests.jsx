@@ -21,7 +21,7 @@ const STATUS_DOT = {
 };
 
 export default function AdminListingRequests() {
-  const { listingRequests, updateListingRequestStatus, approveListingRequest, deleteListingRequest } = useAdminData();
+  const { properties, listingRequests, updateListingRequestStatus, approveListingRequest, deleteListingRequest } = useAdminData();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('ALL');
@@ -35,7 +35,9 @@ export default function AdminListingRequests() {
         !r.name?.toLowerCase().includes(q) &&
         !r.phone?.includes(q) &&
         !r.locality?.toLowerCase().includes(q) &&
-        !r.propertyType?.toLowerCase().includes(q)
+        !r.propertyType?.toLowerCase().includes(q) &&
+        !r.bhk?.toLowerCase().includes(q) &&
+        !r.landmark?.toLowerCase().includes(q)
       ) return false;
     }
     if (filterStatus !== 'ALL' && r.status !== filterStatus) return false;
@@ -70,45 +72,79 @@ export default function AdminListingRequests() {
   };
 
   const getWhatsAppUrl = (r) => {
-    const msg = `Hello ${r.name}, this is Dhananjay Kumar from Shyam Homes. We received your property listing request for ${r.propertyType} in ${r.locality}. We'd like to schedule a quick call to proceed further.`;
+    const msg = `Hello ${r.name}, this is Dhananjay Kumar from Shyam Homes. We received your property listing request for ${r.bhk ? `${r.bhk} ` : ''}${r.propertyType} in ${r.locality}. We'd like to schedule a quick call to proceed further.`;
     return `https://wa.me/91${r.phone}?text=${encodeURIComponent(msg)}`;
   };
 
-  // Pre-fill property form from listing request
-  const requestToPropertyFormData = (r) => r ? {
-    title: `${r.propertyType} in ${r.locality}`,
-    shortTitle: `${r.propertyType} – ${r.locality}`,
-    type: r.propertyType === 'Plot' || r.propertyType === 'Land' ? r.propertyType : r.propertyType,
-    category: r.propertyType === 'Plot' ? 'Plots' : r.propertyType === 'Flat' ? 'Flats' : r.propertyType === 'Commercial' ? 'Commercial' : 'Houses',
-    status: 'INACTIVE',
-    price: r.expectedPrice || 'Price on Request',
-    priceNumeric: 0,
-    priceNote: 'Negotiable',
-    location: `${r.locality}, Patna, Bihar`,
-    localityKey: r.locality,
-    area: r.area || '',
-    builtUpArea: r.area || '',
-    beds: '',
-    baths: '',
-    balconies: '',
-    floor: '',
-    parking: '',
-    furnishing: 'Unfurnished',
-    facing: '',
-    possession: 'Ready to Move',
-    ownership: 'Freehold',
-    roadWidth: '',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
-    gallery: ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80'],
-    video: '',
-    overview: r.message || 'Property submitted by owner for listing.',
-    description: `Owner: ${r.name} (${r.phone}). ${r.message || ''}`,
-    locationAdvantage: '',
-    suitableFor: '',
-    amenities: [],
-    nearbyPlaces: [],
-    mapQuery: `${r.locality}, Patna, Bihar`,
-  } : null;
+  // Pre-fill property form from listing request with FULL options & photos
+  const requestToPropertyFormData = (r) => {
+    if (!r) return null;
+    const isRent = r.purpose === 'Rent' || r.purpose === 'Rent / Lease';
+    const nextPropNumber = (properties?.length || 0) + 1;
+    const autoPropertyId = `SH-${String(nextPropNumber).padStart(4, '0')}`;
+
+    // Collect seller photos
+    const sellerImages = (r.imageUrls && r.imageUrls.length > 0)
+      ? r.imageUrls
+      : (r.mediaUrls && r.mediaUrls.length > 0)
+        ? r.mediaUrls
+        : [];
+    const coverImage = sellerImages[0] || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80';
+    const galleryImages = sellerImages.length > 0 ? sellerImages : [coverImage];
+    const videoUrl = (r.videoUrls && r.videoUrls[0]) || r.video || '';
+
+    // Determine type & category
+    const propType = r.propertyType === 'Land' ? 'Plot' : (r.propertyType || 'House');
+    const category = isRent
+      ? 'Rental Properties'
+      : (propType === 'Plot' ? 'Plots' : propType === 'Flat' ? 'Flats' : propType === 'Commercial' ? 'Commercial' : 'Houses');
+
+    const bhkLabel = r.bhk ? `${r.bhk} ` : '';
+    const title = `${bhkLabel}${propType} for ${isRent ? 'Rent' : 'Sale'} in ${r.locality}`;
+    const shortTitle = `${bhkLabel}${propType} – ${r.locality}`;
+
+    const formattedArea = r.area ? `${r.area}${r.areaUnit ? ` ${r.areaUnit}` : ' sq.ft'}` : '';
+
+    return {
+      title,
+      shortTitle,
+      propertyId: autoPropertyId,
+      type: propType,
+      category,
+      status: isRent ? 'FOR RENT' : 'FOR SALE',
+      price: r.expectedPrice || '',
+      priceNumeric: 0,
+      priceNote: r.priceNote || 'Negotiable',
+      location: r.location || `${r.landmark ? `${r.landmark}, ` : ''}${r.locality}, Patna, Bihar`,
+      localityKey: r.locality || 'Kankarbagh',
+      area: formattedArea || 'Contact for Details',
+      builtUpArea: r.builtUpArea || formattedArea || '',
+      plotArea: r.plotArea || (propType === 'Plot' ? formattedArea : ''),
+      beds: r.beds !== undefined && r.beds !== '' ? r.beds : (r.bhk ? parseInt(r.bhk, 10) : ''),
+      baths: r.baths || '',
+      balconies: r.balconies || '',
+      floor: r.floor || '',
+      parking: r.parking || '',
+      furnishing: r.furnishing || 'Unfurnished',
+      facing: r.facing || '',
+      possession: r.possession || 'Ready to Move',
+      ownership: r.ownership || 'Freehold',
+      roadWidth: r.roadWidth || '',
+      image: coverImage,
+      gallery: galleryImages,
+      video: videoUrl,
+      overview: r.message || `${bhkLabel}${propType} located at ${r.locality}, Patna. Verified listing submitted by owner.`,
+      description: `Owner: ${r.name} (${r.phone}${r.email ? `, ${r.email}` : ''})${r.userRole ? ` [${r.userRole}]` : ''}.\n${r.message || ''}`,
+      locationAdvantage: r.landmark ? `Prime location near ${r.landmark} in ${r.locality}.` : '',
+      suitableFor: '',
+      amenities: r.amenities || [],
+      nearbyPlaces: [],
+      mapQuery: `${r.locality}, Patna, Bihar`,
+      listedFromRequest: r.id,
+      ownerName: r.name,
+      ownerPhone: r.phone,
+    };
+  };
 
   return (
     <AdminLayout
@@ -162,119 +198,236 @@ export default function AdminListingRequests() {
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-          {filtered.map((r) => (
-            <div
-              key={r.id}
-              className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-4"
-            >
-              {/* Status & Type Header */}
-              <div className="flex items-center justify-between gap-2 mb-1">
-                <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200">
-                  {r.propertyType}
-                </span>
-                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold uppercase border ${STATUS_COLORS[r.status] || STATUS_COLORS.Pending}`}>
-                  <span className={`w-1.5 h-1.5 rounded-full ${STATUS_DOT[r.status] || STATUS_DOT.Pending}`} />
-                  {r.status}
-                </span>
-              </div>
+          {filtered.map((r) => {
+            const isRent = r.purpose === 'Rent' || r.purpose === 'Rent / Lease';
+            const images = (r.imageUrls && r.imageUrls.length > 0)
+              ? r.imageUrls
+              : (r.mediaUrls && r.mediaUrls.length > 0)
+                ? r.mediaUrls
+                : [];
+            const hasVideo = (r.videoUrls && r.videoUrls.length > 0) || !!r.video;
 
-              {/* Owner Info */}
-              <div>
-                <h3 className="font-serif text-lg font-bold text-gunmetal-900">{r.name}</h3>
-                <p className="text-xs font-mono font-semibold text-slate-500 mt-0.5">📞 {r.phone}</p>
+            return (
+              <div
+                key={r.id}
+                className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-4"
+              >
+                {/* Status & Purpose Header */}
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className={`px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider ${
+                        isRent ? 'bg-sky-50 text-sky-800 border border-sky-200' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                      }`}>
+                        {isRent ? 'FOR RENT' : 'FOR SALE'}
+                      </span>
+                      <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200">
+                        {r.bhk ? `${r.bhk} ` : ''}{r.propertyType}
+                      </span>
+                    </div>
 
-                <div className="mt-3 py-3 border-y border-slate-100 space-y-1.5 text-xs text-slate-600">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-3.5 h-3.5 text-gold-600 shrink-0" />
-                    <span className="font-semibold text-gunmetal-900">{r.locality}, Patna</span>
+                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold uppercase border ${STATUS_COLORS[r.status] || STATUS_COLORS.Pending}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${STATUS_DOT[r.status] || STATUS_DOT.Pending}`} />
+                      {r.status}
+                    </span>
                   </div>
-                  {r.area && (
+
+                  {/* Owner Info */}
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <h3 className="font-serif text-lg font-bold text-gunmetal-900 leading-snug">{r.name}</h3>
+                      <p className="text-xs font-mono font-semibold text-slate-500 mt-0.5">📞 {r.phone}</p>
+                      {r.email && <p className="text-[11px] text-slate-400 mt-0.5">✉️ {r.email}</p>}
+                    </div>
+                    {r.userRole && (
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 shrink-0">
+                        {r.userRole}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Property Specs Box */}
+                  <div className="mt-3 py-3 border-y border-slate-100 space-y-2 text-xs text-slate-600">
                     <div className="flex items-center gap-2">
-                      <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                      <span>{r.area}</span>
+                      <MapPin className="w-3.5 h-3.5 text-gold-600 shrink-0" />
+                      <span className="font-semibold text-gunmetal-900">
+                        {r.landmark ? `${r.landmark}, ` : ''}{r.locality}, Patna
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-3">
+                      {r.area && (
+                        <div className="flex items-center gap-1.5">
+                          <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                          <span className="font-medium">{r.area}{r.areaUnit ? ` ${r.areaUnit}` : ' sq.ft'}</span>
+                        </div>
+                      )}
+                      {r.expectedPrice && (
+                        <div className="flex items-center gap-1">
+                          <IndianRupee className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                          <span className="font-bold text-gold-700">{r.expectedPrice}</span>
+                          {r.priceNote && <span className="text-[10px] text-slate-400">({r.priceNote})</span>}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Chips for Specs */}
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {r.furnishing && (
+                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-50 text-slate-700 border border-slate-200">
+                          🛋️ {r.furnishing}
+                        </span>
+                      )}
+                      {r.floor && (
+                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-50 text-slate-700 border border-slate-200">
+                          🏢 {r.floor}
+                        </span>
+                      )}
+                      {r.facing && (
+                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-50 text-slate-700 border border-slate-200">
+                          🧭 {r.facing}
+                        </span>
+                      )}
+                      {r.parking && (
+                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-50 text-slate-700 border border-slate-200">
+                          🚗 {r.parking}
+                        </span>
+                      )}
+                      {r.possession && (
+                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-50 text-slate-700 border border-slate-200">
+                          ⏱️ {r.possession}
+                        </span>
+                      )}
+                      {r.roadWidth && (
+                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-50 text-slate-700 border border-slate-200">
+                          🛣️ {r.roadWidth}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Photos / Media Thumbnail Strip */}
+                  {(images.length > 0 || hasVideo) && (
+                    <div className="mt-3">
+                      <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 mb-1.5">
+                        <span>Submitted Media</span>
+                        <div className="flex items-center gap-2">
+                          {images.length > 0 && <span>📸 {images.length} photo{images.length > 1 ? 's' : ''}</span>}
+                          {hasVideo && <span className="text-primary-700">🎬 Video</span>}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 overflow-x-auto pb-1">
+                        {images.slice(0, 3).map((imgUrl, idx) => (
+                          <a
+                            key={idx}
+                            href={imgUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-16 h-12 rounded-lg overflow-hidden border border-slate-200 shrink-0 hover:opacity-90 transition-opacity bg-slate-100"
+                            title="Click to view full photo"
+                          >
+                            <img src={imgUrl} alt={`Photo ${idx + 1}`} className="w-full h-full object-cover" />
+                          </a>
+                        ))}
+                        {images.length > 3 && (
+                          <div className="w-16 h-12 rounded-lg bg-slate-100 border border-slate-200 shrink-0 flex items-center justify-center text-[11px] font-bold text-slate-600">
+                            +{images.length - 3} more
+                          </div>
+                        )}
+                      </div>
                     </div>
                   )}
-                  {r.expectedPrice && (
-                    <div className="flex items-center gap-2">
-                      <IndianRupee className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                      <span className="font-bold text-gold-700">{r.expectedPrice}</span>
+
+                  {/* Amenities Preview */}
+                  {r.amenities && r.amenities.length > 0 && (
+                    <div className="mt-2.5 flex flex-wrap gap-1">
+                      {r.amenities.slice(0, 3).map((a, i) => (
+                        <span key={i} className="text-[10px] px-2 py-0.5 bg-emerald-50 text-emerald-800 rounded border border-emerald-200/70">
+                          ✓ {a}
+                        </span>
+                      ))}
+                      {r.amenities.length > 3 && (
+                        <span className="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded">
+                          +{r.amenities.length - 3} more
+                        </span>
+                      )}
                     </div>
                   )}
+
+                  {r.message && (
+                    <p className="text-xs text-slate-600 italic bg-slate-50 p-2.5 rounded-xl border border-slate-100 mt-3 line-clamp-2">
+                      "{r.message}"
+                    </p>
+                  )}
+
+                  <p className="text-[10px] text-slate-400 mt-2">
+                    Submitted: {new Date(r.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  </p>
                 </div>
 
-                {r.message && (
-                  <p className="text-xs text-slate-600 italic bg-slate-50 p-2.5 rounded-xl border border-slate-100 mt-3 line-clamp-2">
-                    "{r.message}"
-                  </p>
-                )}
-
-                <p className="text-[10px] text-slate-400 mt-2">
-                  Submitted: {new Date(r.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
-                </p>
-              </div>
-
-              {/* Actions */}
-              <div className="space-y-2">
-                {r.status === 'Pending' && (
-                  <button
-                    onClick={() => handleOpenApproveModal(r)}
-                    className="w-full py-2.5 rounded-xl bg-primary-500 hover:bg-primary-400 text-gunmetal-950 font-bold text-xs flex items-center justify-center gap-1.5 shadow-primary-glow transition-all uppercase tracking-wide"
-                  >
-                    <CheckCircle2 className="w-4 h-4" />
-                    Approve & Publish as Property
-                  </button>
-                )}
-
-                <div className="flex items-center gap-2">
-                  <a
-                    href={`tel:${r.phone}`}
-                    className="flex-1 py-2 rounded-xl bg-gunmetal-900 hover:bg-gunmetal-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors"
-                  >
-                    <Phone className="w-3.5 h-3.5 text-primary-400" />
-                    <span>Call</span>
-                  </a>
-
-                  <a
-                    href={getWhatsAppUrl(r)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 py-2 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all"
-                  >
-                    <MessageCircle className="w-3.5 h-3.5 fill-white" />
-                    <span>WhatsApp</span>
-                  </a>
-
+                {/* Actions */}
+                <div className="space-y-2 pt-2">
                   {r.status === 'Pending' && (
                     <button
-                      onClick={() => handleReject(r)}
-                      className="p-2 text-slate-400 hover:text-rose-600 rounded-xl hover:bg-rose-50 transition-colors"
-                      title="Reject Request"
+                      onClick={() => handleOpenApproveModal(r)}
+                      className="w-full py-2.5 rounded-xl bg-primary-500 hover:bg-primary-400 text-gunmetal-950 font-bold text-xs flex items-center justify-center gap-1.5 shadow-primary-glow transition-all uppercase tracking-wide"
                     >
-                      <XCircle className="w-4 h-4" />
+                      <CheckCircle2 className="w-4 h-4" />
+                      Approve & Publish as Property
                     </button>
                   )}
 
-                  <button
-                    onClick={() => handleDelete(r)}
-                    className="p-2 text-slate-400 hover:text-rose-600 rounded-xl hover:bg-rose-50 transition-colors"
-                    title="Delete Request"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={`tel:${r.phone}`}
+                      className="flex-1 py-2 rounded-xl bg-gunmetal-900 hover:bg-gunmetal-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors"
+                    >
+                      <Phone className="w-3.5 h-3.5 text-primary-400" />
+                      <span>Call</span>
+                    </a>
 
-                {r.status === 'Approved' && (
-                  <Link
-                    to="/admin/properties"
-                    className="w-full py-2 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-emerald-100 transition-colors"
-                  >
-                    <ExternalLink className="w-3.5 h-3.5" />
-                    View Published Property
-                  </Link>
-                )}
+                    <a
+                      href={getWhatsAppUrl(r)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 py-2 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5 fill-white" />
+                      <span>WhatsApp</span>
+                    </a>
+
+                    {r.status === 'Pending' && (
+                      <button
+                        onClick={() => handleReject(r)}
+                        className="p-2 text-slate-400 hover:text-rose-600 rounded-xl hover:bg-rose-50 transition-colors"
+                        title="Reject Request"
+                      >
+                        <XCircle className="w-4 h-4" />
+                      </button>
+                    )}
+
+                    <button
+                      onClick={() => handleDelete(r)}
+                      className="p-2 text-slate-400 hover:text-rose-600 rounded-xl hover:bg-rose-50 transition-colors"
+                      title="Delete Request"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {r.status === 'Approved' && (
+                    <Link
+                      to="/admin/properties"
+                      className="w-full py-2 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-emerald-100 transition-colors"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      View Published Property
+                    </Link>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {filtered.length === 0 && (
@@ -292,12 +445,14 @@ export default function AdminListingRequests() {
         )}
       </div>
 
-      {/* Approve Modal — reuses PropertyFormModal with pre-filled data */}
+      {/* Approve Modal — reuses PropertyFormModal with pre-filled data & approve mode */}
       <PropertyFormModal
         isOpen={approveModalOpen}
         onClose={() => { setApproveModalOpen(false); setSelectedRequest(null); }}
         onSave={handleApproveAndPublish}
         property={requestToPropertyFormData(selectedRequest)}
+        mode="approve"
+        requestInfo={selectedRequest}
       />
     </AdminLayout>
   );

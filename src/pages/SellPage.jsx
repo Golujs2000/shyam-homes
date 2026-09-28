@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { DollarSign, CheckCircle2, Phone, MessageCircle, Send, ShieldCheck, TrendingUp, Users, FileCheck, Upload, Camera, Trash2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { DollarSign, CheckCircle2, Phone, MessageCircle, Send, ShieldCheck, TrendingUp, Users, FileCheck, Upload, Camera, Trash2, Sparkles, ArrowRight } from 'lucide-react';
 import { useAdminData } from '../context/AdminDataContext';
 import { propertyTypes, localities } from '../data/localities';
+import SEO from '../components/SEO';
 
 export default function SellPage() {
   const { addLead, settings } = useAdminData();
@@ -46,6 +48,12 @@ export default function SellPage() {
 
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen text-left">
+      <SEO
+        title="Sell Property in Patna — Fast Listing & Verified Buyers"
+        description="Looking to sell your plot, flat, or house in Patna? List with Shyam Homes for verified buyers, quick valuation, and complete legal support. Call 7858832545."
+        keywords="Sell Property Patna, Sell Plot Patna, Sell Flat Kankarbagh, Property Dealer Patna, Sell House Danapur"
+        canonical="/sell"
+      />
       {/* Banner */}
       <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto">
@@ -85,7 +93,23 @@ export default function SellPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Form (7 cols) */}
           <div className="lg:col-span-7 bg-white p-5 sm:p-8 md:p-10 rounded-3xl border border-slate-200/90 shadow-premium">
-            <div className="mb-8">
+            <div className="mb-6">
+              <div className="p-3.5 mb-5 rounded-2xl bg-primary-500/10 border border-primary-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <Sparkles className="w-5 h-5 text-primary-700 shrink-0" />
+                  <p className="text-xs text-gunmetal-900 font-medium">
+                    Want to provide BHK, furnishing, facing, floor &amp; upload photos?
+                  </p>
+                </div>
+                <Link
+                  to="/list-property"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gunmetal-900 hover:bg-gunmetal-800 text-primary-400 font-bold text-xs shrink-0 transition-colors"
+                >
+                  <span>Open Full Listing Portal</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+
               <h2 className="font-serif text-2xl sm:text-3xl font-bold text-navy-900">
                 List Your Property For Sale
               </h2>

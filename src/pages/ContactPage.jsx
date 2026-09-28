@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Phone, MessageCircle, MapPin, Clock, Send, CheckCircle2, ShieldCheck, Mail } from 'lucide-react';
 import { useAdminData } from '../context/AdminDataContext';
 import FAQSection from '../components/FAQSection';
+import SEO from '../components/SEO';
+import { getRealEstateAgentSchema } from '../utils/seoSchemas';
 
 export default function ContactPage() {
   const { addEnquiry, settings } = useAdminData();
@@ -38,6 +40,12 @@ export default function ContactPage() {
 
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen text-left">
+      <SEO
+        title="Contact Us — Office & Site Visit Assistance"
+        description="Get in touch with Shyam Homes in Patna. Visit our Kankarbagh office or call Dhananjay Kumar at +91 7858832545 for verified property inquiries."
+        canonical="/contact"
+        schema={getRealEstateAgentSchema(settings)}
+      />
       {/* Banner */}
       <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto">

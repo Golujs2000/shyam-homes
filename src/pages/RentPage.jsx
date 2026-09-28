@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Key, MapPin, Bed, Bath, Maximize2, MessageCircle, Phone, CheckCircle2, ShieldCheck, HelpCircle } from 'lucide-react';
 import { useAdminData } from '../context/AdminDataContext';
 import { localities } from '../data/localities';
+import SEO from '../components/SEO';
 
 export default function RentPage() {
   const { properties, addLead, settings } = useAdminData();
@@ -44,6 +45,12 @@ export default function RentPage() {
 
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen text-left">
+      <SEO
+        title="Rent Flats, Houses & Offices in Patna"
+        description="Find verified 1 BHK, 2 BHK, and 3 BHK flats for rent in Patliputra Colony, Kankarbagh, and Boring Road, Patna. Direct verified owner listings with Shyam Homes."
+        keywords="Rent flat Patna, Rent house Kankarbagh, Patliputra flat for rent, 2 BHK rent Patna"
+        canonical="/rent"
+      />
       {/* Banner */}
       <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto">

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ShieldCheck, CheckCircle2, Home, Building, MapPin, IndianRupee, MessageCircle, Phone, ArrowRight, HelpCircle } from 'lucide-react';
 import { useAdminData } from '../context/AdminDataContext';
 import { propertyTypes, localities } from '../data/localities';
+import SEO from '../components/SEO';
 
 export default function BuyPage() {
   const { properties, addLead, settings } = useAdminData();
@@ -46,6 +47,12 @@ export default function BuyPage() {
 
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen text-left">
+      <SEO
+        title="Buy Verified Properties in Patna — Houses, Flats & Plots"
+        description="Looking to buy a property in Patna? Explore verified plots, apartments, and independent houses with clear title deeds and bank loan assistance."
+        keywords="Buy Property Patna, Buy Flat Kankarbagh, Buy Plot Danapur, Buy House Boring Road, Property for sale Patna"
+        canonical="/buy"
+      />
       {/* Hero Banner */}
       <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto">

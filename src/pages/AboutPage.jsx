@@ -1,5 +1,6 @@
 import React from 'react';
 import { Building2, Award, ShieldCheck, CheckCircle2, Phone, MessageCircle, MapPin, Users, HeartHandshake, Compass } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function AboutPage() {
   const values = [
@@ -27,6 +28,11 @@ export default function AboutPage() {
 
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen text-left">
+      <SEO
+        title="About Us — Trusted Real Estate Consultants in Patna"
+        description="Learn about Shyam Homes, Patna's trusted property consultancy founded by Dhananjay Kumar. Specializing in verified residential plots, apartments, and commercial deals."
+        canonical="/about"
+      />
       {/* Banner */}
       <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto">

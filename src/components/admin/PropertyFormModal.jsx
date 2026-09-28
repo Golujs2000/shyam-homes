@@ -27,56 +27,90 @@ const ALL_AMENITIES = [
   'Fire Safety Approved'
 ];
 
-export default function PropertyFormModal({ isOpen, onClose, onSave, property }) {
+export default function PropertyFormModal({ isOpen, onClose, onSave, property, mode = 'edit', requestInfo = null }) {
   if (!isOpen) return null;
 
-  const isEditing = !!property;
+  const isApproveMode = mode === 'approve';
+  const isEditing = !isApproveMode && !!property;
 
-  const [formData, setFormData] = useState({
-    title: '',
-    shortTitle: '',
-    propertyId: '',
-    type: 'Flat',
-    category: 'Flats',
-    status: 'FOR SALE',
-    price: '',
-    priceNumeric: 0,
-    priceNote: 'Negotiable',
-    location: 'Kankarbagh, Patna, Bihar',
-    localityKey: 'Kankarbagh',
-    area: '1,500 sq.ft',
-    builtUpArea: '1,500 sq.ft',
-    plotArea: '',
-    beds: 3,
-    baths: 2,
-    balconies: 2,
-    floor: '3rd of 8 Floors',
-    parking: '1 Covered Car Parking',
-    furnishing: 'Semi-Furnished',
-    facing: 'East Facing',
-    possession: 'Ready to Move',
-    ownership: 'Freehold',
-    roadWidth: '30 ft Wide Road',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
-    gallery: [
-      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80'
-    ],
-    video: '',
-    overview: 'Spacious and well-ventilated property situated in prime Patna locality with easy connectivity to markets, schools and transit.',
-    description: 'Constructed with premium materials, modern architecture, clear legal title, and full compliance with municipal building codes in Patna.',
-    locationAdvantage: 'Minutes away from leading hospitals, educational institutions, railway transit, and daily utility shopping.',
-    suitableFor: 'Ideal for families seeking a safe, peaceful neighborhood with modern amenities or investors seeking rental return.',
-    amenities: ['Covered Parking', '24/7 Water Supply', 'Private Balcony', 'CCTV Surveillance', '100% Power Backup'],
-    nearbyPlaces: [
-      { name: 'Nearest Hospital / Medical Facility', distance: '1.2 km' },
-      { name: 'Local Public School & Coaching Hub', distance: '800 m' },
-      { name: 'Railway Transit / Bus Stand', distance: '2.5 km' },
-      { name: 'Daily Grocery & Retail Market', distance: '300 m' }
-    ],
-    mapQuery: 'Patna, Bihar'
-  });
+  const getInitialState = () => {
+    if (property) {
+      return {
+        title: property.title || '',
+        shortTitle: property.shortTitle || '',
+        propertyId: property.propertyId || '',
+        type: property.type || 'Flat',
+        category: property.category || 'Flats',
+        status: property.status || 'FOR SALE',
+        price: property.price || '',
+        priceNumeric: property.priceNumeric || 0,
+        priceNote: property.priceNote || 'Negotiable',
+        location: property.location || `${property.localityKey || 'Kankarbagh'}, Patna, Bihar`,
+        localityKey: property.localityKey || 'Kankarbagh',
+        area: property.area || '',
+        builtUpArea: property.builtUpArea || property.area || '',
+        plotArea: property.plotArea || '',
+        beds: property.beds !== null && property.beds !== undefined ? property.beds : '',
+        baths: property.baths !== null && property.baths !== undefined ? property.baths : '',
+        balconies: property.balconies !== null && property.balconies !== undefined ? property.balconies : '',
+        floor: property.floor || '',
+        parking: property.parking || '',
+        furnishing: property.furnishing || 'Unfurnished',
+        facing: property.facing || '',
+        possession: property.possession || 'Ready to Move',
+        ownership: property.ownership || 'Freehold',
+        roadWidth: property.roadWidth || '',
+        image: property.image || (property.gallery && property.gallery[0]) || '',
+        gallery: (property.gallery && property.gallery.length > 0) ? property.gallery : (property.image ? [property.image] : []),
+        video: property.video || '',
+        overview: property.overview || '',
+        description: property.description || '',
+        locationAdvantage: property.locationAdvantage || '',
+        suitableFor: property.suitableFor || '',
+        amenities: property.amenities || [],
+        nearbyPlaces: property.nearbyPlaces || [],
+        mapQuery: property.mapQuery || `${property.localityKey || 'Patna'}, Patna, Bihar`,
+      };
+    }
+    return {
+      title: '',
+      shortTitle: '',
+      propertyId: '',
+      type: 'Flat',
+      category: 'Flats',
+      status: 'FOR SALE',
+      price: '',
+      priceNumeric: 0,
+      priceNote: 'Negotiable',
+      location: 'Kankarbagh, Patna, Bihar',
+      localityKey: 'Kankarbagh',
+      area: '',
+      builtUpArea: '',
+      plotArea: '',
+      beds: '',
+      baths: '',
+      balconies: '',
+      floor: '',
+      parking: '',
+      furnishing: 'Unfurnished',
+      facing: '',
+      possession: 'Ready to Move',
+      ownership: 'Freehold',
+      roadWidth: '',
+      image: '',
+      gallery: [],
+      video: '',
+      overview: '',
+      description: '',
+      locationAdvantage: '',
+      suitableFor: '',
+      amenities: [],
+      nearbyPlaces: [],
+      mapQuery: 'Patna, Bihar',
+    };
+  };
+
+  const [formData, setFormData] = useState(getInitialState);
 
   const [coverInputMode, setCoverInputMode] = useState('upload'); // 'upload' | 'url'
   const [galleryInputMode, setGalleryInputMode] = useState('upload'); // 'upload' | 'url'
@@ -95,19 +129,10 @@ export default function PropertyFormModal({ isOpen, onClose, onSave, property })
   const [newLandmark, setNewLandmark] = useState({ name: '', distance: '' });
 
   useEffect(() => {
-    if (property) {
-      setFormData({
-        ...property,
-        beds: property.beds !== null ? property.beds : '',
-        baths: property.baths !== null ? property.baths : '',
-        balconies: property.balconies !== null ? property.balconies : '',
-        gallery: property.gallery || [property.image],
-        video: property.video || '',
-        amenities: property.amenities || [],
-        nearbyPlaces: property.nearbyPlaces || []
-      });
+    if (isOpen) {
+      setFormData(getInitialState());
     }
-  }, [property]);
+  }, [isOpen, property?.id, property?.propertyId, property?.listedFromRequest]);
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -394,16 +419,35 @@ export default function PropertyFormModal({ isOpen, onClose, onSave, property })
         {/* Header */}
         <div className="px-6 py-5 bg-navy-950 text-white flex items-center justify-between border-b border-navy-800">
           <div>
-            <span className="text-[11px] font-bold text-gold-400 uppercase tracking-widest block">
-              {isEditing ? 'Property Management' : 'Add New Listing'}
-            </span>
-            <h2 className="font-serif text-xl sm:text-2xl font-bold">
-              {isEditing ? `Edit Property: ${property.propertyId}` : 'Create New Property'}
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-bold text-gold-400 uppercase tracking-widest block">
+                {isApproveMode ? 'Listing Request Review & Publish' : isEditing ? 'Property Management' : 'Add New Listing'}
+              </span>
+              {isApproveMode && (
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  Owner Submission
+                </span>
+              )}
+            </div>
+            <h2 className="font-serif text-xl sm:text-2xl font-bold mt-0.5">
+              {isApproveMode
+                ? `Approve & Publish Property: ${formData.propertyId || property?.propertyId || 'New Listing'}`
+                : isEditing
+                ? `Edit Property: ${formData.propertyId || property?.propertyId || ''}`
+                : 'Create New Property'}
             </h2>
+            {isApproveMode && (
+              <div className="mt-1 text-xs text-slate-300 flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span>Submitted by: <strong className="text-white">{requestInfo?.name || property?.ownerName || 'Owner'}</strong> ({requestInfo?.phone || property?.ownerPhone || ''})</span>
+                {requestInfo?.userRole && <span className="text-gold-400">[{requestInfo.userRole}]</span>}
+                {requestInfo?.locality && <span>• Locality: <strong className="text-white">{requestInfo.locality}</strong></span>}
+                {requestInfo?.expectedPrice && <span>• Expected: <strong className="text-gold-400">{requestInfo.expectedPrice}</strong></span>}
+              </div>
+            )}
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full bg-navy-900 text-slate-300 hover:text-white flex items-center justify-center transition-colors border border-navy-800"
+            className="w-9 h-9 rounded-full bg-navy-900 text-slate-300 hover:text-white flex items-center justify-center transition-colors border border-navy-800 shrink-0 ml-4"
           >
             <X className="w-5 h-5" />
           </button>
@@ -1324,9 +1368,22 @@ export default function PropertyFormModal({ isOpen, onClose, onSave, property })
 
             <button
               type="submit"
-              className="px-7 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-navy-950 font-bold text-sm shadow-gold-glow transition-all"
+              className={`px-7 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2 ${
+                isApproveMode
+                  ? 'bg-primary-500 hover:bg-primary-400 text-gunmetal-950 shadow-primary-glow'
+                  : 'bg-gold-500 hover:bg-gold-400 text-navy-950 shadow-gold-glow'
+              }`}
             >
-              {isEditing ? 'Save Changes' : 'Publish Property'}
+              {isApproveMode ? (
+                <>
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>Approve &amp; Publish to Website</span>
+                </>
+              ) : isEditing ? (
+                'Save Changes'
+              ) : (
+                'Publish Property'
+              )}
             </button>
           </div>
         </form>
