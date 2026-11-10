@@ -54,15 +54,17 @@ export default function SellPage() {
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen text-left">
       <SEO
-        title="Sell Property in Patna — Fast Listing & Verified Buyers"
+        title="Sell Property in Patna — Fast Listing & Verified Buyers | Shyam Homes"
         description="Looking to sell your plot, flat, or house in Patna? List with Shyam Homes for verified buyers, quick valuation, and complete legal support. Call 7858832545."
         keywords="Sell Property Patna, Sell Plot Patna, Sell Flat Kankarbagh, Property Dealer Patna, Sell House Danapur"
         canonical="/sell"
+        schemas={[getBreadcrumbSchema(breadcrumbItems)]}
       />
       {/* Banner */}
       <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-moonstone-700 text-xs font-bold uppercase tracking-wider mb-4 border border-lightblue-300 shadow-sm">
+          <Breadcrumbs items={breadcrumbItems} />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-moonstone-700 text-xs font-bold uppercase tracking-wider mb-4 border border-lightblue-300 shadow-sm mt-3">
             Property Sellers Portal
           </div>
           <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-gunmetal-900 leading-tight">
