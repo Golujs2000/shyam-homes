@@ -1,11 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, ArrowLeft } from 'lucide-react';
+import SEO from '../components/SEO';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { getBreadcrumbSchema } from '../utils/seoSchemas';
 
 export default function PrivacyPage() {
+  const breadcrumbItems = [
+    { name: 'Privacy Policy', url: '/privacy' }
+  ];
+
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen text-left">
+      <SEO
+        title="Privacy Policy — Shyam Homes Patna"
+        description="Read the privacy policy of Shyam Homes Real Estate Consultants in Patna, Bihar. Learn how we handle client property inquiries and data securely."
+        canonical="/privacy"
+        schemas={[getBreadcrumbSchema(breadcrumbItems)]}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 bg-white rounded-3xl border border-slate-200/90 shadow-sm mt-6">
+        <Breadcrumbs items={breadcrumbItems} />
         <Link to="/" className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-navy-900 mb-6">
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Home</span>

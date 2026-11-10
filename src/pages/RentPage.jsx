@@ -4,10 +4,15 @@ import { Key, MapPin, Bed, Bath, Maximize2, MessageCircle, Phone, CheckCircle2, 
 import { useAdminData } from '../context/AdminDataContext';
 import { localities } from '../data/localities';
 import SEO from '../components/SEO';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { getBreadcrumbSchema } from '../utils/seoSchemas';
 
 export default function RentPage() {
   const { properties, addLead, settings } = useAdminData();
   const rentalProperties = properties.filter((p) => p.status === 'FOR RENT');
+  const breadcrumbItems = [
+    { name: 'Rent Property', url: '/rent' }
+  ];
   const [tenantForm, setTenantForm] = useState({
     name: '',
     phone: '',
@@ -46,15 +51,17 @@ export default function RentPage() {
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen text-left">
       <SEO
-        title="Rent Flats, Houses & Offices in Patna"
+        title="Rent Flats, Houses & Offices in Patna — Verified Listings | Shyam Homes"
         description="Find verified 1 BHK, 2 BHK, and 3 BHK flats for rent in Patliputra Colony, Kankarbagh, and Boring Road, Patna. Direct verified owner listings with Shyam Homes."
         keywords="Rent flat Patna, Rent house Kankarbagh, Patliputra flat for rent, 2 BHK rent Patna"
         canonical="/rent"
+        schemas={[getBreadcrumbSchema(breadcrumbItems)]}
       />
       {/* Banner */}
       <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-gunmetal-900 text-xs font-bold uppercase tracking-wider mb-4 border border-lightblue-300 shadow-sm">
+          <Breadcrumbs items={breadcrumbItems} />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-gunmetal-900 text-xs font-bold uppercase tracking-wider mb-4 border border-lightblue-300 shadow-sm mt-3">
             Rental & Leasing Desk
           </div>
           <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-gunmetal-900 leading-tight">

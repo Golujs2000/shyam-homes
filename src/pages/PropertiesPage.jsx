@@ -5,6 +5,8 @@ import { useAdminData } from '../context/AdminDataContext';
 import { localities, propertyTypes } from '../data/localities';
 import PropertyModal from '../components/PropertyModal';
 import SEO from '../components/SEO';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { getBreadcrumbSchema } from '../utils/seoSchemas';
 
 export default function PropertiesPage() {
   const { properties } = useAdminData();
@@ -95,13 +97,15 @@ export default function PropertiesPage() {
         title={seoTitle}
         description={seoDescription}
         keywords="Properties Patna, Real Estate Patna, Flats Kankarbagh, Plots Bihta, Land Danapur, Rent Patliputra"
-        canonical={`/properties${localityParam ? `?locality=${localityParam}` : categoryParam ? `?category=${categoryParam}` : ''}`}
+        canonical="/properties"
+        schemas={[getBreadcrumbSchema([{ name: 'Properties', url: '/properties' }])]}
       />
 
       {/* Top Banner */}
       <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto text-left">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-moonstone-700 text-xs font-bold uppercase tracking-wider mb-3 border border-lightblue-300 shadow-sm">
+          <Breadcrumbs items={[{ name: 'Properties', url: '/properties' }]} />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-moonstone-700 text-xs font-bold uppercase tracking-wider mb-3 border border-lightblue-300 shadow-sm mt-3">
             Patna Real Estate Catalog
           </div>
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gunmetal-900">

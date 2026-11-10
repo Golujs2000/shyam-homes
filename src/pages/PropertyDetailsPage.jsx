@@ -139,7 +139,7 @@ export default function PropertyDetailsPage() {
         keywords={`${property.title}, ${property.localityKey || property.location}, Real Estate Patna, Property in ${property.localityKey || 'Patna'}`}
         canonical={`/property/${property.id}`}
         ogImage={property.image || (property.gallery && property.gallery[0])}
-        schema={structuredData}
+        schemas={structuredData}
       />
 
       {/* 2. Breadcrumb Navigation */}

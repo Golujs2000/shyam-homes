@@ -8,6 +8,9 @@ import {
 import { useAdminData } from "../context/AdminDataContext";
 import { localities } from "../data/localities";
 import { uploadMediaFile, deleteMediaFile, validateMediaFile, MEDIA_LIMITS } from "../services/storageService";
+import SEO from "../components/SEO";
+import Breadcrumbs from "../components/Breadcrumbs";
+import { getBreadcrumbSchema } from "../utils/seoSchemas";
 
 const formatBytes = (bytes) => {
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
@@ -341,13 +344,26 @@ export default function ListPropertyPage() {
     { icon: Home, title: "End-to-End Handling", desc: "From site photos & client visits to paperwork and registry assistance — 100% transparent." },
   ];
 
+  const breadcrumbItems = [
+    { name: 'List Your Property', url: '/list-property' }
+  ];
+
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen text-left">
+      <SEO
+        title="List Your Property for Sale or Rent in Patna | Shyam Homes"
+        description="List your plot, apartment, house, or commercial property in Patna for free. Reach verified buyers and tenants with Dhananjay Kumar."
+        keywords="List property Patna, Sell flat Patna, Rent out property Patna, Post property ad Patna"
+        canonical="/list-property"
+        schemas={[getBreadcrumbSchema(breadcrumbItems)]}
+      />
+
       {/* Hero Banner */}
       <div className="relative overflow-hidden border-b border-lightblue-200 bg-gradient-to-br from-gunmetal-950 via-gunmetal-900 to-gunmetal-800 text-white py-14 px-4 sm:px-6 lg:px-8">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_30%_50%,#ffc64f_0%,transparent_60%)]" />
         <div className="relative max-w-7xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-500/20 border border-primary-500/40 text-primary-400 text-xs font-bold uppercase tracking-wider mb-4">
+          <Breadcrumbs items={breadcrumbItems} />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-500/20 border border-primary-500/40 text-primary-400 text-xs font-bold uppercase tracking-wider mb-4 mt-3">
             <Star className="w-3.5 h-3.5 fill-primary-400" /> Premium Property Listing Portal
           </div>
           <h1 className="font-serif text-3xl sm:text-5xl font-bold leading-tight text-white max-w-3xl">
