@@ -13,4 +13,4 @@ Disallow: /*?*sort=*
 Disallow: /*?*filter=*
 
 # Sitemap location
-Sitemap: https://shyamhomespatna.com/sitemap.xml
+Sitemap: https://shyam-homes.web.app/sitemap.xml
