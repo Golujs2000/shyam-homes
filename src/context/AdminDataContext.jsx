@@ -43,7 +43,7 @@ const defaultSettings = {
   consultantRole: 'Real Estate & Property Consultant',
   phone: '7858832545',
   whatsapp: '7858832545',
-  email: 'info@shyamhomespatna.com',
+  email: 'info@shyamhomes.com',
   address: 'Kankarbagh Main Road, Near Tiwary Bechar, Patna, Bihar - 800020',
   operatingHours: 'Monday - Sunday: 9:00 AM - 8:00 PM',
 };

@@ -5,15 +5,15 @@
 export const getRealEstateAgentSchema = (settings = {}) => ({
   '@context': 'https://schema.org',
   '@type': 'RealEstateAgent',
-  '@id': 'https://shyamhomespatna.com/#realestateagent',
+  '@id': 'https://shyamhomes.com/#realestateagent',
   name: 'Shyam Homes',
   alternateName: 'Shyam Homes Real Estate & Property Consultants Patna',
   description: 'Trusted Real Estate & Property Consultant in Patna, Bihar. Assisting buyers and sellers with residential plots, luxury flats, houses, and commercial property.',
-  url: 'https://shyamhomespatna.com',
-  logo: 'https://shyamhomespatna.com/logo.png',
-  image: 'https://shyamhomespatna.com/logo.png',
+  url: 'https://shyamhomes.com',
+  logo: 'https://shyamhomes.com/logo.png',
+  image: 'https://shyamhomes.com/logo.png',
   telephone: settings.phone ? `+91${settings.phone.replace(/[^0-9]/g, '')}` : '+917858832545',
-  email: settings.email || 'info@shyamhomespatna.com',
+  email: settings.email || 'info@shyamhomes.com',
   priceRange: '₹₹₹',
   address: {
     '@type': 'PostalAddress',
@@ -65,7 +65,7 @@ export const getPropertySchema = (property) => {
     '@type': property.type === 'House' ? 'SingleFamilyResidence' : property.type === 'Plot' ? 'Landform' : 'Apartment',
     name: property.title,
     description: property.overview || property.description,
-    url: `https://shyamhomespatna.com/property/${property.id}`,
+    url: `https://shyamhomes.com/property/${property.id}`,
     image: property.gallery && property.gallery.length > 0 ? property.gallery : [property.image],
     address: {
       '@type': 'PostalAddress',
@@ -107,7 +107,7 @@ export const getBreadcrumbSchema = (items = []) => ({
     '@type': 'ListItem',
     position: index + 1,
     name: item.name,
-    item: item.url.startsWith('http') ? item.url : `https://shyamhomespatna.com${item.url}`
+    item: item.url.startsWith('http') ? item.url : `https://shyamhomes.com${item.url}`
   }))
 });
 

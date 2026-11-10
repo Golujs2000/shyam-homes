@@ -13,4 +13,4 @@ Disallow: /*?*sort=*
 Disallow: /*?*filter=*
 
 # Sitemap location
-Sitemap: https://shyam-homes.web.app/sitemap.xml
+Sitemap: https://shyamhomes.com/sitemap.xml

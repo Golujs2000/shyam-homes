@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const BASE_URL = typeof window !== 'undefined' && window.location.origin ? window.location.origin : 'https://shyam-homes.web.app';
+const BASE_URL = typeof window !== 'undefined' && window.location.origin ? window.location.origin : 'https://shyamhomes.com';
 const DEFAULT_TITLE = 'Shyam Homes — Real Estate & Property Consultants | Patna, Bihar';
 const DEFAULT_DESCRIPTION = 'Explore plots, houses, flats, and commercial properties in Patna with Shyam Homes. Professional real estate assistance by Dhananjay Kumar (7858832545). Buy, Sell & Rent.';
 const DEFAULT_IMAGE = `${BASE_URL}/logo.png`;
