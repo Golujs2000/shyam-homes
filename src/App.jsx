@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import { AdminDataProvider } from './context/AdminDataContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import FloatingContact from './components/FloatingContact';
 import ScrollToTop from './components/ScrollToTop';
 
-// Public Pages
+// Core Public Pages
 import HomePage from './pages/HomePage';
 import PropertiesPage from './pages/PropertiesPage';
 import BuyPage from './pages/BuyPage';
@@ -18,6 +18,20 @@ import PropertyDetailsPage from './pages/PropertyDetailsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import ListPropertyPage from './pages/ListPropertyPage';
+
+// SEO & Content Pages
+import ServicesHubPage from './pages/ServicesHubPage';
+import ServiceDetailsPage from './pages/ServiceDetailsPage';
+import LocationsHubPage from './pages/LocationsHubPage';
+import LocationDetailsPage from './pages/LocationDetailsPage';
+import GuidesHubPage from './pages/GuidesHubPage';
+import GuideDetailsPage from './pages/GuideDetailsPage';
+import CaseStudiesPage from './pages/CaseStudiesPage';
+import TestimonialsPage from './pages/TestimonialsPage';
+import FaqPage from './pages/FaqPage';
+import CookiePolicyPage from './pages/CookiePolicyPage';
+import HtmlSitemapPage from './pages/HtmlSitemapPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 // Admin Pages & Protected Route
 import ProtectedRoute from './components/admin/ProtectedRoute';
@@ -122,10 +136,32 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/property/:id" element={<PropertyDetailsPage />} />
+
+            {/* SEO Architecture: Services */}
+            <Route path="/services" element={<ServicesHubPage />} />
+            <Route path="/services/:slug" element={<ServiceDetailsPage />} />
+
+            {/* SEO Architecture: Locations */}
+            <Route path="/locations" element={<LocationsHubPage />} />
+            <Route path="/locations/:slug" element={<LocationDetailsPage />} />
+
+            {/* SEO Architecture: Guides & Resources */}
+            <Route path="/guides" element={<GuidesHubPage />} />
+            <Route path="/guides/:slug" element={<GuideDetailsPage />} />
+
+            {/* SEO Architecture: Social Proof, Trust & Help */}
+            <Route path="/case-studies" element={<CaseStudiesPage />} />
+            <Route path="/testimonials" element={<TestimonialsPage />} />
+            <Route path="/faqs" element={<FaqPage />} />
+
+            {/* Legal & Compliance */}
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/terms" element={<TermsPage />} />
-            {/* Fallback */}
-            <Route path="*" element={<HomePage />} />
+            <Route path="/cookie-policy" element={<CookiePolicyPage />} />
+            <Route path="/sitemap" element={<HtmlSitemapPage />} />
+
+            {/* 404 Error Route */}
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </Router>

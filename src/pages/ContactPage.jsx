@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Phone, MessageCircle, MapPin, Clock, Send, CheckCircle2, ShieldCheck, Mail } from 'lucide-react';
+import { Phone, MessageCircle, MapPin, Clock, Send, CheckCircle2, ShieldCheck, Mail, ExternalLink } from 'lucide-react';
 import { useAdminData } from '../context/AdminDataContext';
 import FAQSection from '../components/FAQSection';
 import SEO from '../components/SEO';
-import { getRealEstateAgentSchema } from '../utils/seoSchemas';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { getRealEstateAgentSchema, getBreadcrumbSchema } from '../utils/seoSchemas';
+import { siteConfig } from '../data/seoContentData';
 
 export default function ContactPage() {
   const { addEnquiry, settings } = useAdminData();
@@ -15,6 +17,10 @@ export default function ContactPage() {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+
+  const breadcrumbItems = [
+    { name: 'Contact Us', url: '/contact' }
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,15 +47,17 @@ export default function ContactPage() {
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen text-left">
       <SEO
-        title="Contact Us — Office & Site Visit Assistance"
-        description="Get in touch with Shyam Homes in Patna. Visit our Kankarbagh office or call Dhananjay Kumar at +91 7858832545 for verified property inquiries."
+        title="Contact Us — Office & Site Visit Assistance in Patna | Shyam Homes"
+        description="Get in touch with Shyam Homes in Patna. Visit our Kankarbagh office near Tiwary Bechar or call Dhananjay Kumar at +91 7858832545 for verified property inquiries."
         canonical="/contact"
-        schema={getRealEstateAgentSchema(settings)}
+        schemas={[getBreadcrumbSchema(breadcrumbItems), getRealEstateAgentSchema(settings)]}
       />
+
       {/* Banner */}
       <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-moonstone-700 text-xs font-bold uppercase tracking-wider mb-4 border border-lightblue-300 shadow-sm">
+          <Breadcrumbs items={breadcrumbItems} />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-moonstone-700 text-xs font-bold uppercase tracking-wider mb-4 border border-lightblue-300 shadow-sm mt-3">
             Get in Touch
           </div>
           <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-gunmetal-900 leading-tight">
@@ -104,12 +112,12 @@ export default function ContactPage() {
               <div className="w-12 h-12 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center mb-4">
                 <MapPin className="w-6 h-6" />
               </div>
-              <h3 className="font-serif text-lg font-bold text-navy-900">Coverage Location</h3>
-              <p className="text-xs text-slate-500 mt-1">All key residential corridors</p>
+              <h3 className="font-serif text-lg font-bold text-navy-900">Patna Office</h3>
+              <p className="text-xs text-slate-500 mt-1">{siteConfig.officeAddress.street}, {siteConfig.officeAddress.locality}</p>
             </div>
             <div className="mt-4 pt-4 border-t border-slate-100">
-              <span className="text-sm font-bold text-navy-900">
-                Patna, Bihar
+              <span className="text-xs font-bold text-navy-900">
+                Patna, Bihar - 800020
               </span>
             </div>
           </div>
@@ -132,12 +140,12 @@ export default function ContactPage() {
 
         {/* Contact Form & Office Profile */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-slate-200/90 shadow-premium">
+          <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-slate-200/90 shadow-sm">
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-navy-900 mb-2">
               Send an Enquiry
             </h2>
             <p className="text-sm text-slate-500 mb-8">
-              Leave your details below and we will get back to you within 2 hours.
+              Leave your details below and consultant Dhananjay Kumar will get back to you promptly.
             </p>
 
             {submitted ? (
@@ -234,7 +242,7 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-navy-950 font-bold uppercase tracking-wider text-sm transition-all shadow-gold-glow flex items-center justify-center gap-2"
+                  className="w-full py-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-navy-950 font-bold uppercase tracking-wider text-sm transition-all shadow-md flex items-center justify-center gap-2"
                 >
                   <Send className="w-4 h-4" />
                   <span>Send Inquiry via WhatsApp</span>
@@ -243,7 +251,7 @@ export default function ContactPage() {
             )}
           </div>
 
-          {/* Consultant Bio & Service Areas */}
+          {/* Consultant Bio & Office Details */}
           <div className="lg:col-span-5 bg-navy-900 text-white p-8 sm:p-10 rounded-3xl border border-navy-800 space-y-6">
             <div>
               <span className="text-xs uppercase tracking-widest text-gold-400 font-bold">Principal Consultant</span>
@@ -252,7 +260,7 @@ export default function ContactPage() {
             </div>
 
             <p className="text-sm text-slate-300 leading-relaxed">
-              We provide on-ground assistance with accurate circle rates, legal verification, site visits, and negotiation for plots, homes, and commercial units in Patna.
+              We provide on-ground assistance with accurate circle rates, legal verification, site visits, and negotiation for plots, homes, and commercial units across Patna.
             </p>
 
             <div className="space-y-3 pt-4 border-t border-navy-800 text-sm">
@@ -262,7 +270,11 @@ export default function ContactPage() {
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-gold-400" />
-                <span>Patna, Bihar (Kankarbagh, Boring Rd, Bailey Rd, Danapur)</span>
+                <span>{siteConfig.officeAddress.street}, {siteConfig.officeAddress.locality}, Patna - 800020</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-gold-400" />
+                <span>{siteConfig.email}</span>
               </div>
             </div>
 
@@ -271,12 +283,49 @@ export default function ContactPage() {
                 href="https://wa.me/917858832545?text=Hello%20Dhananjay%20ji,%20I%20need%20property%20assistance%20in%20Patna."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 py-3.5 bg-gold-500 hover:bg-gold-400 text-navy-950 font-bold rounded-xl text-sm transition-all shadow-gold-glow"
+                className="w-full inline-flex items-center justify-center gap-2 py-3.5 bg-gold-500 hover:bg-gold-400 text-navy-950 font-bold rounded-xl text-sm transition-all shadow-md"
               >
                 <MessageCircle className="w-4 h-4 fill-navy-950" />
                 <span>Start WhatsApp Conversation</span>
               </a>
             </div>
+          </div>
+        </div>
+
+        {/* Google Maps Location Embed */}
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-sm space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="font-serif text-2xl font-bold text-navy-900 flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-moonstone-600" />
+                <span>Our Office Location in Patna</span>
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                Kankarbagh Main Road, Near Tiwary Bechar, Patna, Bihar - 800020
+              </p>
+            </div>
+            <a
+              href={siteConfig.googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-bold text-moonstone-700 hover:underline flex items-center gap-1"
+            >
+              <span>Open in Google Maps</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+          <div className="w-full h-80 sm:h-96 rounded-2xl overflow-hidden border border-slate-200">
+            <iframe
+              title="Shyam Homes Office Location Kankarbagh Patna"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14392.65780517926!2d85.1465223!3d25.5912441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed5868a867b14d%3A0x6b4ef84c36199676!2sKankarbagh%2C%20Patna%2C%20Bihar!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
 

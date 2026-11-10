@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { useAdminData } from '../context/AdminDataContext';
-import { getRealEstateAgentSchema } from '../utils/seoSchemas';
+import { getRealEstateAgentSchema, getWebSiteSchema, getFAQSchema } from '../utils/seoSchemas';
+import { faqs } from '../data/faqs';
 import Hero from '../components/Hero';
 import PropertySearch from '../components/PropertySearch';
 import Categories from '../components/Categories';
@@ -27,7 +28,6 @@ export default function HomePage() {
 
   // Search handler from Hero/Search box
   const handleSearch = (criteria) => {
-    // Navigate to properties page with query parameters or apply locally
     setSearchCriteria(criteria);
   };
 
@@ -52,6 +52,12 @@ export default function HomePage() {
     }
   };
 
+  const homepageSchemas = [
+    getRealEstateAgentSchema(settings),
+    getWebSiteSchema(),
+    getFAQSchema(faqs)
+  ];
+
   return (
     <div>
       <SEO
@@ -59,7 +65,7 @@ export default function HomePage() {
         description="Find verified plots, residential flats, luxury houses, and commercial property in Patna with Shyam Homes. Direct consultation by Dhananjay Kumar (7858832545)."
         keywords="Shyam Homes, Real Estate Patna, Property in Patna, Plots in Bihta, Flats in Kankarbagh, Houses in Boring Road, Land for sale Danapur, Dhananjay Kumar"
         canonical="/"
-        schema={getRealEstateAgentSchema(settings)}
+        schemas={homepageSchemas}
       />
 
       {/* 2. Hero Section */}
@@ -86,7 +92,7 @@ export default function HomePage() {
       <AboutUs />
 
       {/* 8. Property Services */}
-      <Services onSelectService={(serviceId) => navigate('/properties')} />
+      <Services />
 
       {/* 9. Areas We Serve */}
       <AreasServed onSelectLocality={handleLocalitySelect} />

@@ -4,6 +4,8 @@ import { ShieldCheck, CheckCircle2, Home, Building, MapPin, IndianRupee, Message
 import { useAdminData } from '../context/AdminDataContext';
 import { propertyTypes, localities } from '../data/localities';
 import SEO from '../components/SEO';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { getBreadcrumbSchema } from '../utils/seoSchemas';
 
 export default function BuyPage() {
   const { properties, addLead, settings } = useAdminData();
@@ -11,6 +13,10 @@ export default function BuyPage() {
   const forSaleProperties = properties.filter(
     (p) => p.status === 'FOR SALE' && (selectedType === 'ALL' || p.type === selectedType)
   );
+
+  const breadcrumbItems = [
+    { name: 'Buy Property', url: '/buy' }
+  ];
 
   const [buyerReq, setBuyerReq] = useState({
     name: '',
@@ -48,15 +54,17 @@ export default function BuyPage() {
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen text-left">
       <SEO
-        title="Buy Verified Properties in Patna — Houses, Flats & Plots"
+        title="Buy Verified Properties in Patna — Houses, Flats & Plots | Shyam Homes"
         description="Looking to buy a property in Patna? Explore verified plots, apartments, and independent houses with clear title deeds and bank loan assistance."
         keywords="Buy Property Patna, Buy Flat Kankarbagh, Buy Plot Danapur, Buy House Boring Road, Property for sale Patna"
         canonical="/buy"
+        schemas={[getBreadcrumbSchema(breadcrumbItems)]}
       />
       {/* Hero Banner */}
       <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-gunmetal-900 text-xs font-bold uppercase tracking-wider mb-4 border border-lightblue-300 shadow-sm">
+          <Breadcrumbs items={breadcrumbItems} />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-gunmetal-900 text-xs font-bold uppercase tracking-wider mb-4 border border-lightblue-300 shadow-sm mt-3">
             Buyer Advisory Desk
           </div>
           <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-gunmetal-900 leading-tight">

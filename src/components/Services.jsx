@@ -1,70 +1,64 @@
 import React from 'react';
-import { Home, DollarSign, Key, Trees, Building2, Users, ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Home, DollarSign, Key, Trees, Building2, Users, ArrowUpRight, ArrowRight } from 'lucide-react';
 
-export default function Services({ onSelectService }) {
+export default function Services() {
   const services = [
     {
       id: "buying",
+      slug: "buy-property-patna",
       title: "Property Buying",
-      description: "Assistance in finding residential and commercial properties.",
+      description: "Assistance in finding verified residential plots, apartments, and commercial spaces.",
       icon: Home,
       tag: "Residential & Commercial",
-      cta: "Find Property"
+      cta: "Explore Buying"
     },
     {
       id: "selling",
+      slug: "sell-property-patna",
       title: "Property Selling",
-      description: "Connect with potential buyers for your property.",
+      description: "Connect with pre-screened buyers and get true market valuation for your asset.",
       icon: DollarSign,
       tag: "Verified Buyers",
-      cta: "Sell With Us",
-      targetId: "#sell-property"
+      cta: "Explore Selling"
     },
     {
       id: "rental",
+      slug: "rent-property-patna",
       title: "Property Rental",
-      description: "Find suitable rental properties for your needs.",
+      description: "Find verified 1/2/3 BHK flats, independent floors, and commercial offices for rent.",
       icon: Key,
       tag: "Flats & Commercial",
-      cta: "Find Rental"
+      cta: "Explore Rentals"
     },
     {
       id: "plots",
-      title: "Plot Buying & Selling",
-      description: "Residential and commercial plot opportunities.",
+      slug: "plots-land-patna",
+      title: "Plots & Land",
+      description: "Registry-ready residential and commercial plots with clear Kattha measurement.",
       icon: Trees,
-      tag: "Registry Ready",
+      tag: "100% Registry Ready",
       cta: "Explore Plots"
     },
     {
       id: "commercial",
-      title: "Commercial Property",
-      description: "Shops, offices and commercial spaces.",
+      slug: "commercial-property-patna",
+      title: "Commercial Real Estate",
+      description: "Prime road-facing shops, retail showrooms, corporate floors, and office spaces.",
       icon: Building2,
-      tag: "Prime Markets",
+      tag: "High Footfall Hubs",
       cta: "View Commercial"
     },
     {
       id: "consultation",
-      title: "Property Consultation",
-      description: "Discuss your property requirement with our consultant.",
+      slug: "property-valuation-patna",
+      title: "Valuation & Legal Check",
+      description: "30-year chain deed search, Jamabandi check, LPC, and circle rate guidance.",
       icon: Users,
-      tag: "Direct One-on-One",
-      cta: "Talk to Expert",
-      targetId: "#contact"
+      tag: "Title Due Diligence",
+      cta: "Legal Advisory"
     }
   ];
-
-  const handleCardClick = (service) => {
-    if (service.targetId) {
-      const el = document.querySelector(service.targetId);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      const el = document.querySelector('#properties');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-      if (onSelectService) onSelectService(service.id);
-    }
-  };
 
   return (
     <section id="services" className="py-24 bg-white">
@@ -87,10 +81,10 @@ export default function Services({ onSelectService }) {
           {services.map((item) => {
             const IconComponent = item.icon;
             return (
-              <div
+              <Link
                 key={item.id}
-                onClick={() => handleCardClick(item)}
-                className="bg-surface-light border border-slate-200/80 rounded-2xl p-8 flex flex-col justify-between hover:bg-white hover:border-gold-500/40 hover:shadow-card-hover transition-all duration-300 text-left group cursor-pointer hover:-translate-y-1"
+                to={`/services/${item.slug}`}
+                className="bg-surface-light border border-slate-200/80 rounded-2xl p-8 flex flex-col justify-between hover:bg-white hover:border-gold-500/40 hover:shadow-card-hover transition-all duration-300 text-left group hover:-translate-y-1"
               >
                 <div>
                   {/* Top row: Icon and Tag */}
@@ -104,7 +98,7 @@ export default function Services({ onSelectService }) {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-navy-900 mb-2.5 group-hover:text-gold-600 transition-colors">
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-navy-900 mb-2.5 group-hover:text-moonstone-700 transition-colors">
                     {item.title}
                   </h3>
 
@@ -119,9 +113,20 @@ export default function Services({ onSelectService }) {
                   <span>{item.cta}</span>
                   <ArrowUpRight className="w-4 h-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
-              </div>
+              </Link>
             );
           })}
+        </div>
+
+        {/* View All Services Link */}
+        <div className="text-center mt-12">
+          <Link
+            to="/services"
+            className="inline-flex items-center gap-2 text-sm font-bold text-moonstone-700 hover:text-gold-600 transition-colors uppercase tracking-wider"
+          >
+            <span>Explore Complete Services & Advisory Hub</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </section>

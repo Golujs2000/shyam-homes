@@ -1,8 +1,17 @@
 import React from 'react';
 import { Building2, Award, ShieldCheck, CheckCircle2, Phone, MessageCircle, MapPin, Users, HeartHandshake, Compass } from 'lucide-react';
 import SEO from '../components/SEO';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { useAdminData } from '../context/AdminDataContext';
+import { getRealEstateAgentSchema, getBreadcrumbSchema } from '../utils/seoSchemas';
 
 export default function AboutPage() {
+  const { settings } = useAdminData();
+
+  const breadcrumbItems = [
+    { name: 'About Us', url: '/about' }
+  ];
+
   const values = [
     {
       title: "Local Market Knowledge",
@@ -29,14 +38,17 @@ export default function AboutPage() {
   return (
     <div className="pt-24 pb-20 bg-surface-light min-h-screen text-left">
       <SEO
-        title="About Us — Trusted Real Estate Consultants in Patna"
+        title="About Us — Trusted Real Estate Consultants in Patna | Shyam Homes"
         description="Learn about Shyam Homes, Patna's trusted property consultancy founded by Dhananjay Kumar. Specializing in verified residential plots, apartments, and commercial deals."
         canonical="/about"
+        schemas={[getBreadcrumbSchema(breadcrumbItems), getRealEstateAgentSchema(settings)]}
       />
+
       {/* Banner */}
       <div className="bg-gradient-to-r from-[#d9f1f6] via-[#c3e7f1] to-[#e8f7fa] text-gunmetal-900 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-lightblue-200">
         <div className="relative max-w-7xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-moonstone-700 text-xs font-bold uppercase tracking-wider mb-4 border border-lightblue-300 shadow-sm">
+          <Breadcrumbs items={breadcrumbItems} />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-moonstone-700 text-xs font-bold uppercase tracking-wider mb-4 border border-lightblue-300 shadow-sm mt-3">
             About Shyam Homes
           </div>
           <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-gunmetal-900 leading-tight">
@@ -108,7 +120,7 @@ export default function AboutPage() {
         </div>
 
         {/* Core Pillars / Values Grid */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/90 shadow-premium">
+        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/90 shadow-sm">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <h3 className="font-serif text-3xl font-bold text-navy-900">
               Why Patna Trusts Shyam Homes

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { MapPin, ArrowRight, MessageCircle, Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { MapPin, ArrowRight, MessageCircle, Check, Compass } from 'lucide-react';
 import { localities } from '../data/localities';
 
 export default function AreasServed({ onSelectLocality }) {
@@ -11,6 +12,10 @@ export default function AreasServed({ onSelectLocality }) {
       onSelectLocality(loc.name);
     }
   };
+
+  const selectedLocalitySlug = selectedLocality
+    ? selectedLocality.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+    : null;
 
   const askAboutLocationUrl = selectedLocality
     ? `https://wa.me/917858832545?text=${encodeURIComponent(`Hello Shyam Homes, I am looking for property options in ${selectedLocality}, Patna. Please share what is available.`)}`
@@ -28,7 +33,7 @@ export default function AreasServed({ onSelectLocality }) {
             Properties Across Patna
           </h2>
           <p className="mt-3 text-base sm:text-lg text-slate-600">
-            Looking for property in a specific part of Patna? Tell us your preferred location and property requirement.
+            Looking for property in a specific part of Patna? Explore verified listings, price benchmarks, and on-ground insights.
           </p>
         </div>
 
@@ -68,7 +73,7 @@ export default function AreasServed({ onSelectLocality }) {
         </div>
 
         {/* Action Prompt */}
-        <div className="bg-navy-900 rounded-2xl p-8 max-w-3xl mx-auto text-center text-white border border-gold-500/30 shadow-xl relative overflow-hidden">
+        <div className="bg-navy-900 rounded-3xl p-8 max-w-3xl mx-auto text-center text-white border border-gold-500/30 shadow-xl relative overflow-hidden">
           <div className="relative z-10 space-y-4">
             <h3 className="font-serif text-2xl font-bold">
               {selectedLocality ? `Looking for properties in ${selectedLocality}?` : "Have a specific locality in mind?"}
@@ -76,18 +81,39 @@ export default function AreasServed({ onSelectLocality }) {
             <p className="text-slate-300 text-sm max-w-xl mx-auto font-light">
               We maintain direct relationships with plot owners, builders, and landlords across all key hubs in Patna.
             </p>
-            <div className="pt-2">
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
               <a
                 href={askAboutLocationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-navy-950 font-bold px-7 py-3.5 rounded-xl text-sm transition-all shadow-gold-glow"
+                className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-navy-950 font-bold px-6 py-3 rounded-xl text-xs sm:text-sm transition-all shadow-md"
               >
                 <MessageCircle className="w-4 h-4 fill-navy-950" />
-                <span>Ask About a Location</span>
+                <span>Inquire on WhatsApp</span>
               </a>
+
+              {selectedLocalitySlug && (
+                <Link
+                  to={`/locations/${selectedLocalitySlug}`}
+                  className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-3 rounded-xl text-xs sm:text-sm transition-all border border-white/20"
+                >
+                  <Compass className="w-4 h-4 text-gold-400" />
+                  <span>View {selectedLocality} Guide & Rates ↗</span>
+                </Link>
+              )}
             </div>
           </div>
+        </div>
+
+        {/* Directory Link */}
+        <div className="text-center mt-10">
+          <Link
+            to="/locations"
+            className="inline-flex items-center gap-2 text-sm font-bold text-moonstone-700 hover:text-gold-600 transition-colors uppercase tracking-wider"
+          >
+            <span>Explore All Patna Locations Directory</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </section>

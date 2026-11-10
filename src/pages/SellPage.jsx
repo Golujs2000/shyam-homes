@@ -4,9 +4,14 @@ import { DollarSign, CheckCircle2, Phone, MessageCircle, Send, ShieldCheck, Tren
 import { useAdminData } from '../context/AdminDataContext';
 import { propertyTypes, localities } from '../data/localities';
 import SEO from '../components/SEO';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { getBreadcrumbSchema } from '../utils/seoSchemas';
 
 export default function SellPage() {
   const { addLead, settings } = useAdminData();
+  const breadcrumbItems = [
+    { name: 'Sell Property', url: '/sell' }
+  ];
   const [formData, setFormData] = useState({
     name: '',
     phone: '',

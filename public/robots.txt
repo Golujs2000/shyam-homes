@@ -1,14 +1,26 @@
-# Robots.txt for Shyam Homes Patna
+# Robots.txt for Shyam Homes Real Estate Consultants, Patna, Bihar
+# Domain: https://shyamhomes.com
+
 User-agent: *
 Allow: /
+Allow: /properties
+Allow: /services/
+Allow: /locations/
+Allow: /guides/
+Allow: /case-studies
+Allow: /testimonials
+Allow: /faqs
+Allow: /about
+Allow: /contact
+Allow: /sitemap
 
-# Disallow indexing of private admin and authentication routes
+# Disallow private admin and authentication routes
 Disallow: /admin
 Disallow: /admin/
 Disallow: /admin/*
 Disallow: /admin/login
 
-# Disallow query parameter duplicates where appropriate
+# Disallow duplicate faceted query parameters
 Disallow: /*?*sort=*
 Disallow: /*?*filter=*
 
